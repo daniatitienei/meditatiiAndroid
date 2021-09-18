@@ -1,4 +1,4 @@
-package com.example.meditatii_gaseste_tiprofesorul.theme
+package com.example.meditatii_gaseste_tiprofesorul.presentation.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Typography

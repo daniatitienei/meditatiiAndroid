@@ -1,15 +1,13 @@
-package com.example.meditatii_gaseste_tiprofesorul
+package com.example.meditatii_gaseste_tiprofesorul.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.ui.ExperimentalComposeUiApi
-import com.example.meditatii_gaseste_tiprofesorul.Screens.Register
-import com.example.meditatii_gaseste_tiprofesorul.theme.MeditatiiTheme
-import com.example.meditatii_gaseste_tiprofesorul.ui.theme.MeditatiiGasestetiProfesorulTheme
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.Register
+import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTheme
 
 @ExperimentalComposeUiApi
 class MainActivity : ComponentActivity() {

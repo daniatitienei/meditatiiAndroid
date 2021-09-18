@@ -1,4 +1,4 @@
-package com.example.meditatii_gaseste_tiprofesorul.Screens
+package com.example.meditatii_gaseste_tiprofesorul.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

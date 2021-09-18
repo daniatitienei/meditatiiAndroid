@@ -1,4 +1,4 @@
-package com.example.meditatii_gaseste_tiprofesorul.Screens
+package com.example.meditatii_gaseste_tiprofesorul.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -12,13 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.meditatii_gaseste_tiprofesorul.R
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
-import com.example.meditatii_gaseste_tiprofesorul.theme.MeditatiiTheme
+import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTheme
 
 @Composable
 fun Account() {
@@ -27,7 +26,9 @@ fun Account() {
     ) {
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(top = 10.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
@@ -48,15 +49,15 @@ fun Account() {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            AccountListTile(text = "Editeaza datele", onClick = {})
-            AccountListTile(text = "Anunturile mele", onClick = {})
-            AccountListTile(text = "Deconectare", onClick = {})
+            TextListTile(text = "Setari cont", onClick = {})
+            TextListTile(text = "Anunturile mele", onClick = {})
+            TextListTile(text = "Deconectare", onClick = {})
         }
     }
 }
 
 @Composable
-fun AccountListTile(text: String, onClick: () -> Unit) {
+fun TextListTile(text: String, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(horizontal = 20.dp)

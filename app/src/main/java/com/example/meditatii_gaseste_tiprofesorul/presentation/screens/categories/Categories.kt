@@ -1,4 +1,4 @@
-package com.example.meditatii_gaseste_tiprofesorul.Screens
+package com.example.meditatii_gaseste_tiprofesorul.presentation.screens
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
@@ -6,11 +6,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
-import com.example.meditatii_gaseste_tiprofesorul.theme.MeditatiiTheme
+import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTheme
 
 @Composable
 fun Categories() {
