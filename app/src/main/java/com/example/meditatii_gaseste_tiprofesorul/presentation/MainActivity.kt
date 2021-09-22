@@ -7,11 +7,13 @@ import androidx.activity.viewModels
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.ExperimentalComposeUiApi
-import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.Categories
+import coil.annotation.ExperimentalCoilApi
+import com.example.meditatii_gaseste_tiprofesorul.Navigation
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.categories.CategoriesViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalCoilApi
 @AndroidEntryPoint
 @ExperimentalComposeUiApi
 class MainActivity : ComponentActivity() {
@@ -20,12 +22,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        categoriesViewModel.getMaterii()
-
         setContent {
             MeditatiiTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    Categories(categoriesViewModel)
+                    Navigation(categoriesViewModel)
                 }
             }
         }

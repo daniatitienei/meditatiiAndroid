@@ -30,4 +30,8 @@ class CategoriesViewModel @Inject constructor(
                 }
             }
     }
+
+    init {
+        getMaterii()
+    }
 }
