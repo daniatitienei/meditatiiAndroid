@@ -28,15 +28,21 @@ val LightColors = lightColors(
 )
 
 val MeditatiiTypography = Typography(
+    h4 = TextStyle(
+        color = Purple700,
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Bold
+    ),
+
     h3 = TextStyle(
         color = Purple700,
         fontSize = 28.sp,
         fontWeight = FontWeight.Bold
     ),
 
-    h4 = TextStyle(
+    body2 = TextStyle(
         color = Purple700,
-        fontSize = 24.sp,
+        fontSize = 16.sp,
         fontWeight = FontWeight.Bold
     ),
 

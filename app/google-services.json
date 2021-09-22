@@ -1,0 +1,101 @@
+{
+  "project_info": {
+    "project_number": "834293774562",
+    "project_id": "gaseste-ti-profesorul",
+    "storage_bucket": "gaseste-ti-profesorul.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834293774562:android:d4eaedd8ceab2df92246bb",
+        "android_client_info": {
+          "package_name": "com.example.meditatii_gaseste_tiprofesorul"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "834293774562-8jbo16246e85tg5g9ije93ij7sftgep4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meditatii_gaseste_tiprofesorul",
+            "certificate_hash": "9eb4ab9fe2c24f30cac4f8e84aa3c2437e06685b"
+          }
+        },
+        {
+          "client_id": "834293774562-3o8ppt3dp1dct3e5q773jks56f2e90u1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC971WOhxzm9EiIof12hAAs3Yg0Wgpuqig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "834293774562-3o8ppt3dp1dct3e5q773jks56f2e90u1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834293774562:android:b3df6e37a9a988302246bb",
+        "android_client_info": {
+          "package_name": "com.free.find_your_teacher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "834293774562-6mcqti1f56g6v34abj4i94bdrhltqtng.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.free.find_your_teacher",
+            "certificate_hash": "eea75bc7d34e627735c2ab4a25cc2993cc6a2289"
+          }
+        },
+        {
+          "client_id": "834293774562-9oev0c6aq8dmthrbu28m0b783g4bvat2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.free.find_your_teacher",
+            "certificate_hash": "d5cb6763e022a1ef0ae671455d9abecfdfeab53e"
+          }
+        },
+        {
+          "client_id": "834293774562-vhivgtlhr1e7naeo95li2f8f8bvlhucl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.free.find_your_teacher",
+            "certificate_hash": "9eb4ab9fe2c24f30cac4f8e84aa3c2437e06685b"
+          }
+        },
+        {
+          "client_id": "834293774562-3o8ppt3dp1dct3e5q773jks56f2e90u1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC971WOhxzm9EiIof12hAAs3Yg0Wgpuqig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "834293774562-3o8ppt3dp1dct3e5q773jks56f2e90u1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-3178535762944426~2557423846"
+    }
+  ],
+  "configuration_version": "1"
+}
