@@ -20,18 +20,22 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTh
 @Composable
 fun Categories(
     navController: NavController,
-    categoriesViewModel: CategoriesViewModel
+    categoriesViewModel: CategoriesViewModel,
 ) {
     Scaffold(
         topBar = { CategoriesAppBar() }
     ) {
         LazyColumn {
             items(categoriesViewModel.categoriesList.size, itemContent = {
+                val materie = categoriesViewModel.categoriesList[it]
+
                 CategoryTileList(
                     onClick = {
-                        navController.navigate(Screens.SelectedCategory.route)
+                        navController.navigate(
+                            Screens.SelectedCategory.route.replace("{numeMaterie}", materie.nume),
+                        )
                     },
-                    materie = categoriesViewModel.categoriesList[it],
+                    materie = materie,
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             })

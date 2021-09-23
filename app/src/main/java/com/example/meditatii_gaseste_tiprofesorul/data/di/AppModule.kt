@@ -16,4 +16,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideFirestore(): FirebaseFirestore = Firebase.firestore
+
+//    @Provides
+//    @Singleton
+//    fun provideMoshi(): Moshi = Moshi.Builder()
+//        .addLast(KotlinJsonAdapterFactory())
+//        .build()
 }

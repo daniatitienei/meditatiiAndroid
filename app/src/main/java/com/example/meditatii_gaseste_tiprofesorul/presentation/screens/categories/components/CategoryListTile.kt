@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
@@ -27,7 +26,6 @@ import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
 import com.example.meditatii_gaseste_tiprofesorul.domain.model.Materie
-import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTheme
 
 @ExperimentalCoilApi
 @Composable
@@ -35,6 +33,8 @@ fun CategoryTileList(
     onClick: () -> Unit = {},
     materie: Materie = Materie(),
 ) {
+//    TODO Mai mult padding horizontal si sa fie textul si poza mai mici
+
     val imageLoader = ImageLoader.Builder(LocalContext.current)
         .componentRegistry {
             add(SvgDecoder(LocalContext.current))
@@ -91,13 +91,5 @@ fun CategoryTileList(
                 tint = Purple700
             )
         }
-    }
-}
-
-@Preview
-@Composable
-fun PreviewTile() {
-    MeditatiiTheme {
-        CategoryTileList()
     }
 }
