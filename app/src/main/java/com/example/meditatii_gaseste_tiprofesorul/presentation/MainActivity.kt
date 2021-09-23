@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -14,6 +15,7 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedC
 import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalMaterialApi
 @ExperimentalCoilApi
 @AndroidEntryPoint
 @ExperimentalComposeUiApi

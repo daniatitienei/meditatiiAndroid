@@ -1,5 +1,6 @@
 package com.example.meditatii_gaseste_tiprofesorul
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -13,6 +14,7 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.categorie
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.SelectedCategory
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.SelectedCategoryViewModel
 
+@ExperimentalMaterialApi
 @ExperimentalCoilApi
 @Composable
 fun Navigation(

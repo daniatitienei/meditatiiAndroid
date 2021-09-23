@@ -33,7 +33,6 @@ fun CategoryTileList(
     onClick: () -> Unit = {},
     materie: Materie = Materie(),
 ) {
-//    TODO Mai mult padding horizontal si sa fie textul si poza mai mici
 
     val imageLoader = ImageLoader.Builder(LocalContext.current)
         .componentRegistry {
@@ -48,7 +47,7 @@ fun CategoryTileList(
                 color = Color(materie.backgroundColor)
             )
             .clickable { onClick() }
-            .padding(horizontal = 15.dp, vertical = 15.dp),
+            .padding(horizontal = 20.dp, vertical = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Row(
@@ -67,13 +66,13 @@ fun CategoryTileList(
 
                     Image(
                         painter = painter,
-                        modifier = Modifier.size(35.dp),
+                        modifier = Modifier.size(30.dp),
                         contentDescription = null,
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(20.dp))
 
             Column {
                 Text(
