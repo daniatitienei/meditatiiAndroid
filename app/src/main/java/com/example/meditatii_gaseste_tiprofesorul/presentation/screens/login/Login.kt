@@ -10,19 +10,31 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
-import com.example.meditatii_gaseste_tiprofesorul.R
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
+import com.example.meditatii_gaseste_tiprofesorul.common.Screens
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.InputField
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.LoginWithGoogleButton
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @ExperimentalComposeUiApi
 @Composable
-fun Login() {
+fun Login(navController: NavController) {
+    val systemUiController = rememberSystemUiController()
+
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = Color.White,
+            darkIcons = true
+        )
+    }
+
     var email by remember {
         mutableStateOf("")
     }
@@ -78,7 +90,11 @@ fun Login() {
                 obscureIcon = true
             )
 
-            TextButton(onClick = { /*TODO*/ }, ) {
+            TextButton(onClick = {
+                navController.navigate(Screens.Register.route) {
+                    launchSingleTop = true
+                }
+            }, ) {
                 Text(
                     text = "Nu am cont",
                     style = MaterialTheme.typography.body1,
@@ -92,7 +108,10 @@ fun Login() {
         Button(
             onClick = { /*TODO*/ },
             modifier = Modifier.fillMaxWidth(),
-            shape = CircleShape
+            shape = CircleShape,
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Purple700
+            )
         ) {
             Text(text = "Conectare")
         }
@@ -103,26 +122,6 @@ fun Login() {
 
         Spacer(modifier = Modifier.height(5.dp))
 
-        Button(
-            onClick = { /*TODO*/ },
-            modifier = Modifier.fillMaxWidth(),
-            shape = CircleShape,
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.White
-            )
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.google),
-                contentDescription = "Continua cu Google",
-                modifier = Modifier.size(26.dp)
-            )
-
-            Spacer(modifier = Modifier.width(10.dp))
-
-            Text(
-                text = "Continua cu Google",
-                color = Purple700,
-            )
-        }
+        LoginWithGoogleButton()
     }
 }

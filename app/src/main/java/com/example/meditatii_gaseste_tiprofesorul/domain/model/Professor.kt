@@ -2,11 +2,11 @@ package com.example.meditatii_gaseste_tiprofesorul.domain.model
 
 import com.google.firebase.Timestamp
 
-data class Profesor(
+data class Professor(
     val date: Timestamp = Timestamp.now(),
     val descriere: String = "",
     val email: String = "",
-    val imgUrl: String = "",
+    var imgUrl: String = "",
     val judet: String = "",
     val materie: String = "",
     val numar: String = "",

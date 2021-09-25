@@ -3,34 +3,38 @@ package com.example.meditatii_gaseste_tiprofesorul.presentation.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
-import com.example.meditatii_gaseste_tiprofesorul.R
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
+import com.example.meditatii_gaseste_tiprofesorul.common.Screens
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.InputField
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.LoginWithGoogleButton
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @ExperimentalComposeUiApi
 @Composable
-fun Register() {
+fun Register(navController: NavController) {
+    val systemUiController = rememberSystemUiController()
+
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = Color.White,
+            darkIcons = true
+        )
+    }
+
     var email by remember {
         mutableStateOf("")
     }
@@ -86,7 +90,13 @@ fun Register() {
                 obscureIcon = true
             )
             
-            TextButton(onClick = { /*TODO*/ }, ) {
+            TextButton(
+                onClick = {
+                    navController.navigate(Screens.Login.route) {
+                        launchSingleTop = true
+                    }
+                },
+            ) {
                 Text(
                     text = "Am cont",
                     style = MaterialTheme.typography.body1,
@@ -100,7 +110,10 @@ fun Register() {
         Button(
             onClick = { /*TODO*/ },
             modifier = Modifier.fillMaxWidth(),
-            shape = CircleShape
+            shape = CircleShape,
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Purple700
+            )
         ) {
             Text(text = "Creeaza cont")
         }
@@ -111,69 +124,6 @@ fun Register() {
 
         Spacer(modifier = Modifier.height(5.dp))
 
-        Button(
-            onClick = { /*TODO*/ },
-            modifier = Modifier.fillMaxWidth(),
-            shape = CircleShape,
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.White
-            )
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.google),
-                contentDescription = "Continua cu Google",
-                modifier = Modifier.size(26.dp)
-            )
-            
-            Spacer(modifier = Modifier.width(10.dp))
-            
-            Text(
-                text = "Continua cu Google",
-                color = Purple700,
-            )
-        }
+        LoginWithGoogleButton()
     }
-}
-
-@ExperimentalComposeUiApi
-@Composable
-fun InputField(
-    value: String,
-    onValueChange: (text: String) -> Unit,
-    placeholder: String,
-    obscureIcon: Boolean,
-) {
-    val keyboardController = LocalSoftwareKeyboardController.current
-    var obscureText by remember {
-        mutableStateOf(true)
-    }
-
-    TextField(
-        value = value,
-        onValueChange = onValueChange,
-        trailingIcon =  {
-            if (obscureIcon)
-                IconButton(onClick = { obscureText = !obscureText }) {
-                    Icon(
-                        Icons.Outlined.Clear,
-                        contentDescription = null,
-                        tint = Purple700
-                    )
-    //                TODO Bag iconita cu ochi
-                }
-        },
-        visualTransformation = if (obscureIcon && obscureText) PasswordVisualTransformation() else VisualTransformation.None,
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = MaterialTheme.colors.background,
-        ),
-        placeholder = { Text(text = placeholder) },
-        modifier = Modifier.fillMaxWidth(),
-        singleLine = true,
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-        keyboardActions = KeyboardActions(
-            onDone = {
-                keyboardController?.hide()
-            }
-        ),
-    )
 }

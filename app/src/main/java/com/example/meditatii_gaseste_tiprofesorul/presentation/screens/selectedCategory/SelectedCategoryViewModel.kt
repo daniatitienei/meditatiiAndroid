@@ -3,7 +3,7 @@ package com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selected
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
-import com.example.meditatii_gaseste_tiprofesorul.domain.model.Profesor
+import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObjects
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class SelectedCategoryViewModel @Inject constructor(
     private val firestore: FirebaseFirestore
 ): ViewModel() {
-    var profesoriList = mutableStateListOf<Profesor>()
+    var profesoriList = mutableStateListOf<Professor>()
         private set
 
     fun getProfesoriList(numeMaterie: String) {
@@ -25,8 +25,7 @@ class SelectedCategoryViewModel @Inject constructor(
                     return@addSnapshotListener
                 }
 
-                for (document in value!!.toObjects<Profesor>()) {
-                    Log.d("document", document.nume.toString())
+                for (document in value!!.toObjects<Professor>()) {
                     profesoriList.add(document)
                 }
             }

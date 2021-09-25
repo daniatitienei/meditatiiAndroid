@@ -8,18 +8,19 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
-import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTheme
 
 @Composable
-fun InspectProfessorTopBar() {
+fun InspectProfessorTopBar(navController: NavController) {
     TopAppBar(
         title = {},
         elevation = 0.dp,
         navigationIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = {
+                navController.popBackStack()
+            }) {
                 Icon(
                     Icons.Rounded.ArrowBack,
                     contentDescription = null,
@@ -38,12 +39,4 @@ fun InspectProfessorTopBar() {
         },
         backgroundColor = Purple700,
     )
-}
-
-@Composable
-@Preview
-fun PreviewProfessorTopBar() {
-    MeditatiiTheme {
-        InspectProfessorTopBar()
-    }
 }

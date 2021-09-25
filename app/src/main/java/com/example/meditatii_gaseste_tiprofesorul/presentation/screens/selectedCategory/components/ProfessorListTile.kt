@@ -17,18 +17,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
-import com.example.meditatii_gaseste_tiprofesorul.domain.model.Profesor
-import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTheme
+import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
 
 @ExperimentalMaterialApi
 @Composable
-fun ProfessorListTile(profesor: Profesor) {
+fun ProfessorListTile(profesor: Professor, onClick: () -> Unit) {
 
     val imageLoader = ImageLoader.Builder(LocalContext.current)
         .componentRegistry {
@@ -38,7 +36,7 @@ fun ProfessorListTile(profesor: Profesor) {
 
     Card(
         elevation = 2.dp,
-        onClick = {}
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -87,21 +85,5 @@ fun ProfessorListTile(profesor: Profesor) {
                 )
             }
         }
-    }
-}
-
-@ExperimentalMaterialApi
-@Composable
-@Preview
-fun ProfessorListTilePreview() {
-    MeditatiiTheme {
-        ProfessorListTile(
-            Profesor(
-                nume = "Atitienei",
-                prenume = "Daniel",
-                pret = 50,
-                judet = "Caras-Severin"
-            )
-        )
     }
 }

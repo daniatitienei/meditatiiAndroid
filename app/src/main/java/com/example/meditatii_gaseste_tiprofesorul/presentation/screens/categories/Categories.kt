@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -15,6 +17,7 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.categorie
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.categories.components.CategoriesAppBar
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.categories.components.CategoryTileList
 import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTheme
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @ExperimentalCoilApi
 @Composable
@@ -22,6 +25,15 @@ fun Categories(
     navController: NavController,
     categoriesViewModel: CategoriesViewModel,
 ) {
+    val systemUiController = rememberSystemUiController()
+
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = Color.White,
+            darkIcons = true
+        )
+    }
+
     Scaffold(
         topBar = { CategoriesAppBar() }
     ) {
