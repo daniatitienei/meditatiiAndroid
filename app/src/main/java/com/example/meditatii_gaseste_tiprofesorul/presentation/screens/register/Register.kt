@@ -65,6 +65,11 @@ fun Register(navController: NavController, registerViewModel: RegisterViewModel)
             val imageLink = "https://firebasestorage.googleapis.com/v0/b/gaseste-ti-profesorul.appspot.com/o/svg%2Fusers_profile.png?alt=media&token=afa9927a-83d4-4255-b6bb-0e8f7fe3ea8d"
             val painter = rememberImagePainter(data = imageLink)
 
+            Image(
+                painter = painter,
+                modifier = Modifier.size(200.dp),
+                contentDescription = null,
+            )
         }
 
 
