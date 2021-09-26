@@ -11,6 +11,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import coil.annotation.ExperimentalCoilApi
 import com.example.meditatii_gaseste_tiprofesorul.Navigation
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.categories.CategoriesViewModel
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.login.LoginViewModel
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.RegisterViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.SelectedCategoryViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTheme
 import com.google.firebase.auth.FirebaseAuth
@@ -28,6 +30,8 @@ class MainActivity : ComponentActivity() {
 
     private val categoriesViewModel by viewModels<CategoriesViewModel>()
     private val selectedCategoryViewModel by viewModels<SelectedCategoryViewModel>()
+    private val registerViewModel by viewModels<RegisterViewModel>()
+    private val loginViewModel by viewModels<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,8 @@ class MainActivity : ComponentActivity() {
                     Navigation(
                         categoriesViewModel = categoriesViewModel,
                         selectedCategoryViewModel = selectedCategoryViewModel,
+                        registerViewModel = registerViewModel,
+                        loginViewModel = loginViewModel,
                         auth = auth,
                         moshi = moshi,
                     )

@@ -23,7 +23,6 @@ fun MeditatiiTheme(content: @Composable () -> Unit) {
 val LightColors = lightColors(
     primary = Color.White,
     primaryVariant = Purple500,
-
     error = Color.Red,
 )
 

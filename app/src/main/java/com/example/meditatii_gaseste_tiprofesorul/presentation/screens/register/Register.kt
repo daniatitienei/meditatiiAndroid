@@ -19,13 +19,14 @@ import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.RegisterViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.InputField
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.LoginWithGoogleButton
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @ExperimentalComposeUiApi
 @Composable
-fun Register(navController: NavController) {
+fun Register(navController: NavController, registerViewModel: RegisterViewModel) {
     val systemUiController = rememberSystemUiController()
 
     SideEffect {
@@ -42,6 +43,8 @@ fun Register(navController: NavController) {
     var password by remember {
         mutableStateOf("")
     }
+
+    val isValid = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.isNotBlank()
 
     val imageLoader = ImageLoader.Builder(LocalContext.current)
         .componentRegistry {
@@ -78,7 +81,8 @@ fun Register(navController: NavController) {
                 value = email,
                 onValueChange = { email = it },
                 placeholder = "Email",
-                obscureIcon = false
+                obscureIcon = false,
+                emailError = registerViewModel.emailError.value
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -87,7 +91,8 @@ fun Register(navController: NavController) {
                 value = password,
                 onValueChange = { password = it },
                 placeholder = "Parola",
-                obscureIcon = true
+                obscureIcon = true,
+                passwordError = registerViewModel.passwordError.value
             )
             
             TextButton(
@@ -108,12 +113,16 @@ fun Register(navController: NavController) {
         Spacer(modifier = Modifier.height(25.dp))
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+//                registerWithEmailandPassword(email, password)
+                registerViewModel.registerWithEmailandPassword(email, password)
+            },
             modifier = Modifier.fillMaxWidth(),
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Purple700
-            )
+            ),
+            enabled = isValid
         ) {
             Text(text = "Creeaza cont")
         }

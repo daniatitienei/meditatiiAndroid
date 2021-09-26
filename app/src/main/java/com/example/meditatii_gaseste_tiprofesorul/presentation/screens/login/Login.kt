@@ -19,13 +19,14 @@ import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.login.LoginViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.InputField
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.LoginWithGoogleButton
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @ExperimentalComposeUiApi
 @Composable
-fun Login(navController: NavController) {
+fun Login(navController: NavController, loginViewModel: LoginViewModel) {
     val systemUiController = rememberSystemUiController()
 
     SideEffect {
@@ -78,7 +79,8 @@ fun Login(navController: NavController) {
                 value = email,
                 onValueChange = { email = it },
                 placeholder = "Email",
-                obscureIcon = false
+                obscureIcon = false,
+                emailError = loginViewModel.emailError.value
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -87,7 +89,8 @@ fun Login(navController: NavController) {
                 value = password,
                 onValueChange = { password = it },
                 placeholder = "Parola",
-                obscureIcon = true
+                obscureIcon = true,
+                passwordError = loginViewModel.passwordError.value
             )
 
             TextButton(onClick = {
@@ -106,7 +109,14 @@ fun Login(navController: NavController) {
         Spacer(modifier = Modifier.height(25.dp))
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                loginViewModel.loginWithEmailandPassword(email, password)
+
+                if (loginViewModel.emailError.value.isBlank() && loginViewModel.passwordError.value.isBlank())
+                    navController.navigate(Screens.Categories.route) {
+                        launchSingleTop = true
+                    }
+            },
             modifier = Modifier.fillMaxWidth(),
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(

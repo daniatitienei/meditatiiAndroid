@@ -16,6 +16,8 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.InspectPr
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.Login
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.Register
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.categories.CategoriesViewModel
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.login.LoginViewModel
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.RegisterViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.SelectedCategory
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.SelectedCategoryViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -28,6 +30,8 @@ import com.squareup.moshi.Moshi
 fun Navigation(
     categoriesViewModel: CategoriesViewModel,
     selectedCategoryViewModel: SelectedCategoryViewModel,
+    registerViewModel: RegisterViewModel,
+    loginViewModel: LoginViewModel,
     auth: FirebaseAuth,
     moshi: Moshi
 ) {
@@ -38,7 +42,7 @@ fun Navigation(
         startDestination = if (auth.currentUser == null) Screens.Register.route else Screens.Categories.route
     ) {
         composable(Screens.Categories.route) {
-            Categories(navController, categoriesViewModel)
+            Categories(navController, categoriesViewModel, auth)
         }
         composable(
             Screens.SelectedCategory.route,
@@ -71,10 +75,10 @@ fun Navigation(
         }
 
         composable(Screens.Login.route) {
-            Login(navController)
+            Login(navController, loginViewModel)
         }
         composable(Screens.Register.route) {
-            Register(navController)
+            Register(navController, registerViewModel)
         }
     }
 }
