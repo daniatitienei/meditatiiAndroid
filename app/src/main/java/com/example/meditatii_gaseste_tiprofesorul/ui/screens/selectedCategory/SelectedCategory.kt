@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
-import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
+import com.example.meditatii_gaseste_tiprofesorul.model.Professor
 import com.example.meditatii_gaseste_tiprofesorul.ui.screens.selectedCategory.components.ProfessorListTile
 import com.example.meditatii_gaseste_tiprofesorul.ui.screens.selectedCategory.components.SelectedCategoryTopBar
 import com.google.accompanist.systemuicontroller.rememberSystemUiController

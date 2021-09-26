@@ -3,7 +3,7 @@ package com.example.meditatii_gaseste_tiprofesorul.ui.screens.selectedCategory
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
-import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
+import com.example.meditatii_gaseste_tiprofesorul.model.Professor
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObjects
 import dagger.hilt.android.lifecycle.HiltViewModel

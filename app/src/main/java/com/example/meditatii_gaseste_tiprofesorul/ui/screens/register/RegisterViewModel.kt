@@ -3,6 +3,7 @@ package com.example.meditatii_gaseste_tiprofesorul.ui.screens.register
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.meditatii_gaseste_tiprofesorul.data.repository.register.RegisterRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
@@ -12,14 +13,14 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val auth: FirebaseAuth
-): ViewModel() {
+): ViewModel(), RegisterRepository {
     var emailError = mutableStateOf<String>("")
         private set
 
     var passwordError = mutableStateOf<String>("")
         private set
 
-    fun registerWithEmailandPassword(email: String, password: String) {
+    override fun registerWithEmailAndPassword(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

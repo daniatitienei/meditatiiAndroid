@@ -10,7 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import coil.annotation.ExperimentalCoilApi
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
-import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
+import com.example.meditatii_gaseste_tiprofesorul.model.Professor
 import com.example.meditatii_gaseste_tiprofesorul.ui.screens.Account
 import com.example.meditatii_gaseste_tiprofesorul.ui.screens.Categories
 import com.example.meditatii_gaseste_tiprofesorul.ui.screens.InspectProfessor.InspectProfessor

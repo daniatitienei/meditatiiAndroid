@@ -22,7 +22,7 @@ import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
-import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
+import com.example.meditatii_gaseste_tiprofesorul.model.Professor
 
 @ExperimentalMaterialApi
 @Composable

@@ -75,7 +75,6 @@ fun Login(navController: NavController, loginViewModel: LoginViewModel) {
             )
         }
 
-
         Column(
             modifier = Modifier.padding(top = 20.dp),
             horizontalAlignment = Alignment.End,
@@ -115,7 +114,7 @@ fun Login(navController: NavController, loginViewModel: LoginViewModel) {
 
         Button(
             onClick = {
-                loginViewModel.loginWithEmailandPassword(email.trim(), password.trim())
+                loginViewModel.loginWithEmailAndPassword(email.trim(), password.trim())
 
                 if (loginViewModel.emailError.value.isBlank() && loginViewModel.passwordError.value.isBlank())
                     navController.navigate(Screens.Categories.route) {

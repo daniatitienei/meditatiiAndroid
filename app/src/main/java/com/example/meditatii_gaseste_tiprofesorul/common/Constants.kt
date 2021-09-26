@@ -1,6 +1,6 @@
 package com.example.meditatii_gaseste_tiprofesorul.common
 
-import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
+import com.example.meditatii_gaseste_tiprofesorul.model.Professor
 
 object Constants {
     val prof = Professor(

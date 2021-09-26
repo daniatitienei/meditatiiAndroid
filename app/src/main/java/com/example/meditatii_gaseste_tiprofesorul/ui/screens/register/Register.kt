@@ -119,7 +119,7 @@ fun Register(navController: NavController, registerViewModel: RegisterViewModel)
 
         Button(
             onClick = {
-                registerViewModel.registerWithEmailandPassword(email.trim(), password.trim())
+                registerViewModel.registerWithEmailAndPassword(email.trim(), password.trim())
             },
             modifier = Modifier.fillMaxWidth(),
             shape = CircleShape,
