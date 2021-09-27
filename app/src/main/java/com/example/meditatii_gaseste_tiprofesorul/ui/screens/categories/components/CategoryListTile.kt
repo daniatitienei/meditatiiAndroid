@@ -62,7 +62,12 @@ fun CategoryTileList(
                     .padding(10.dp)
             ) {
                 CompositionLocalProvider(LocalImageLoader provides imageLoader) {
-                    val painter = rememberImagePainter(data = materie.imageUrl)
+                    val painter = rememberImagePainter(
+                        data = materie.imageUrl,
+                        builder = {
+                            crossfade(true)
+                        }
+                    )
 
                     Image(
                         painter = painter,

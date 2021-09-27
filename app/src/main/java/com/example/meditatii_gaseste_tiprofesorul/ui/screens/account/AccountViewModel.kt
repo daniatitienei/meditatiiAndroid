@@ -2,6 +2,7 @@ package com.example.meditatii_gaseste_tiprofesorul.ui.screens.account
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.meditatii_gaseste_tiprofesorul.data.repository.account.AccountInterface
 import com.example.meditatii_gaseste_tiprofesorul.model.Cont
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,14 +13,12 @@ import javax.inject.Inject
 class AccountViewModel @Inject constructor(
     private val auth: FirebaseAuth,
     private val firestore: FirebaseFirestore
-): ViewModel() {
+): ViewModel(), AccountInterface {
 
     var accountDetails = mutableStateOf(Cont())
         private set
 
-//    Crash cand te deconectezi
-
-    fun getAccount() {
+    override suspend fun getAccountDetails() {
         auth.currentUser?.email?.let {
             firestore.collection("users")
                 .document(it)
@@ -33,7 +32,7 @@ class AccountViewModel @Inject constructor(
                             isStudent = accountMap?.get("isStudent") as Boolean,
                             profil = accountMap.get("profil") as Map<String, String>?
                         )
-    //                    TODO REFACTOR THE CODE
+                        //                    TODO REFACTOR THE CODE
 
                         accountDetails.value = account
                     }

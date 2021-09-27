@@ -35,7 +35,8 @@ fun Categories(
     }
 
     Scaffold(
-        topBar = { CategoriesAppBar(navController, auth) }
+        topBar = { CategoriesAppBar(navController, auth) },
+        floatingActionButton = { }
     ) {
         LazyColumn {
             items(categoriesViewModel.categoriesList.size, itemContent = {

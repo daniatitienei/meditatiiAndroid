@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,18 +22,21 @@ class CategoriesViewModel @Inject constructor(
         private set
 
     override suspend fun getMaterii() {
-        firestore.collection("materii")
-            .addSnapshotListener { value, error ->
-                if (error != null) {
-                    Log.w("nu merge", "An error has occured", error)
-                    return@addSnapshotListener
-                }
+        withContext(Dispatchers.IO) {
+            firestore.collection("materii")
+                .addSnapshotListener { value, error ->
+                    if (error != null) {
+                        Log.w("nu merge", "An error has occured", error)
+                        return@addSnapshotListener
+                    }
 
-                for (document in value!!.toObjects<Materie>()) {
+                    for (document in value!!.toObjects<Materie>()) {
 //                    FIXME Da crash cand apesi pe fata de la info
-                    categoriesList.add(document)
+                        categoriesList.add(document)
+                    }
                 }
-            }
+        }
+
     }
 
     init {

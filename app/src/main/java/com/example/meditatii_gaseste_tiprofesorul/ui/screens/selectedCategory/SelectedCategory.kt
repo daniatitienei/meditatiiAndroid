@@ -7,6 +7,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -18,6 +19,7 @@ import com.example.meditatii_gaseste_tiprofesorul.ui.screens.selectedCategory.co
 import com.example.meditatii_gaseste_tiprofesorul.ui.screens.selectedCategory.components.SelectedCategoryTopBar
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.squareup.moshi.Moshi
+import kotlinx.coroutines.launch
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
@@ -30,8 +32,11 @@ fun SelectedCategory(
     moshi: Moshi,
 ) {
 //    TODO O implementare mai buna a refresh-ului cand alegi alta categorie
+    val scope = rememberCoroutineScope()
 
-    selectedCategoryViewModel.getProfesoriList(numeMaterie)
+    scope.launch {
+        selectedCategoryViewModel.getProfesoriList(numeMaterie)
+    }
 
     val systemUiController = rememberSystemUiController()
 
