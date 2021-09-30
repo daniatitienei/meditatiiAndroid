@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.ImageLoader
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
 import com.example.meditatii_gaseste_tiprofesorul.data.model.Professor
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.InspectProfessor.components.ContactTile
@@ -23,7 +24,11 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.InspectPr
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun InspectProfessor(professor: Professor, navController: NavController) {
+fun InspectProfessor(
+    professor: Professor,
+    navController: NavController,
+    svgLoader: ImageLoader,
+) {
     var descriptionIsExpanded by remember {
         mutableStateOf(false)
     }
@@ -54,7 +59,8 @@ fun InspectProfessor(professor: Professor, navController: NavController) {
                         )
                     )
                     .background(Purple700)
-                    .padding(horizontal = 20.dp)
+                    .padding(horizontal = 20.dp),
+                svgLoader = svgLoader
             )
             Box(
                 modifier = Modifier

@@ -44,7 +44,9 @@ fun Categories(
     Scaffold(
         topBar = { CategoriesAppBar(navController, auth) },
         floatingActionButton = { FloatingActionButton(
-            onClick = {},
+            onClick = {
+                navController.navigate(Screens.AddAnnouncement.route)
+            },
             shape = CircleShape,
             content = {
                 Icon(Icons.Rounded.Add, contentDescription = null, tint = Color.White)

@@ -20,8 +20,8 @@ class CategoriesViewModel @Inject constructor(
     var categoriesList = mutableStateListOf<Materie>()
         private set
 
-    suspend fun getMaterii() {
-        withContext(Dispatchers.IO) {
+    suspend fun fetchMaterii() {
+        withContext(Dispatchers.Main) {
             firestore.collection("materii")
                 .addSnapshotListener { value, error ->
                     if (error != null) {
@@ -40,7 +40,7 @@ class CategoriesViewModel @Inject constructor(
 
     init {
         GlobalScope.launch(Dispatchers.IO) {
-            getMaterii()
+            fetchMaterii()
         }
     }
 }

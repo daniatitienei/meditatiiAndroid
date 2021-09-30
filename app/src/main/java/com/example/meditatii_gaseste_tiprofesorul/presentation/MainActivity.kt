@@ -8,9 +8,10 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.ExperimentalComposeUiApi
+import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
+import com.example.meditatii_gaseste_tiprofesorul.Navigation
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.AccountViewModel
-import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.addAnnouncement.AddAnnouncement
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.addAnnouncement.AddAnnouncementViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.categories.CategoriesViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.login.LoginViewModel
@@ -29,6 +30,7 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
     @Inject lateinit var auth: FirebaseAuth
     @Inject lateinit var moshi: Moshi
+    @Inject lateinit var svgLoader: ImageLoader
 
     private val categoriesViewModel by viewModels<CategoriesViewModel>()
     private val selectedCategoryViewModel by viewModels<SelectedCategoryViewModel>()
@@ -43,16 +45,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             MeditatiiTheme {
                 Surface(color = MaterialTheme.colors.background) {
-//                    Navigation(
-//                        categoriesViewModel = categoriesViewModel,
-//                        selectedCategoryViewModel = selectedCategoryViewModel,
-//                        registerViewModel = registerViewModel,
-//                        loginViewModel = loginViewModel,
-//                        accountViewModel = accountViewModel,
-//                        auth = auth,
-//                        moshi = moshi,
-//                    )
-                    AddAnnouncement()
+                    Navigation(
+                        categoriesViewModel = categoriesViewModel,
+                        selectedCategoryViewModel = selectedCategoryViewModel,
+                        registerViewModel = registerViewModel,
+                        loginViewModel = loginViewModel,
+                        accountViewModel = accountViewModel,
+                        addAnnouncementViewModel = addAnnouncementViewModel,
+                        auth = auth,
+                        moshi = moshi,
+                        svgLoader = svgLoader,
+                    )
+//                    AddAnnouncement(svgLoader = svgLoader)
                 }
             }
         }

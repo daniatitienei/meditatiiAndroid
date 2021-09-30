@@ -1,7 +1,6 @@
 package com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -9,11 +8,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
@@ -40,8 +39,8 @@ fun InputField(
             value = value,
             onValueChange = onValueChange,
             trailingIcon =  {
-                if (type == FieldType.PASSWORD)
-                    IconButton(onClick = { obscureText = !obscureText }) {
+                when (type) {
+                    FieldType.PASSWORD -> IconButton(onClick = { obscureText = !obscureText }) {
                         Icon(
                             Icons.Outlined.Clear,
                             contentDescription = null,
@@ -49,6 +48,8 @@ fun InputField(
                         )
                         //                TODO Bag iconita cu ochi
                     }
+                    FieldType.PRICE -> Text(text = "Lei")
+                }
             },
             visualTransformation = when(type) {
                 FieldType.PASSWORD -> PasswordVisualTransformation()
@@ -61,17 +62,24 @@ fun InputField(
                 cursorColor = Purple700,
             ),
             placeholder = { Text(text = placeholder) },
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = type != FieldType.DESCRIPTION,
+            maxLines = if (type == FieldType.DESCRIPTION) 5 else 1,
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Done,
-                autoCorrect = type == FieldType.PASSWORD
+                autoCorrect = type == FieldType.PASSWORD,
+                keyboardType = when(type) {
+                    FieldType.EMAIL -> KeyboardType.Email
+                    FieldType.PASSWORD -> KeyboardType.Password
+                    FieldType.PHONE_NUMBER -> KeyboardType.Phone
+                    FieldType.PRICE -> KeyboardType.Number
+                    else -> KeyboardType.Text
+                }
             ),
             keyboardActions = KeyboardActions(
                 onDone = {
                     keyboardController?.hide()
                 }
             ),
+
             isError = error.isNotBlank()
         )
         if (error.isNotBlank()) Text(text = error, style = TextStyle(color = Color.Red, fontSize = 13.sp))

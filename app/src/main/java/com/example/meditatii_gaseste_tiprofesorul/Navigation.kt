@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
 import com.example.meditatii_gaseste_tiprofesorul.data.model.Professor
@@ -17,6 +18,8 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.InspectPr
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.Login
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.Register
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.AccountViewModel
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.addAnnouncement.AddAnnouncement
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.addAnnouncement.AddAnnouncementViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.categories.CategoriesViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.login.LoginViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.RegisterViewModel
@@ -35,8 +38,10 @@ fun Navigation(
     registerViewModel: RegisterViewModel,
     loginViewModel: LoginViewModel,
     accountViewModel: AccountViewModel,
+    addAnnouncementViewModel: AddAnnouncementViewModel,
     auth: FirebaseAuth,
-    moshi: Moshi
+    moshi: Moshi,
+    svgLoader: ImageLoader
 ) {
     val navController = rememberNavController()
 
@@ -74,17 +79,21 @@ fun Navigation(
             InspectProfessor(
                 professor = professorObject!!,
                 navController = navController,
+                svgLoader = svgLoader
             )
         }
 
         composable(Screens.Login.route) {
-            Login(navController, loginViewModel)
+            Login(navController, loginViewModel, svgLoader)
         }
         composable(Screens.Register.route) {
-            Register(navController, registerViewModel)
+            Register(navController, registerViewModel, svgLoader)
         }
         composable(Screens.Account.route) {
-            Account(navController, auth, accountViewModel)
+            Account(navController, auth, accountViewModel, svgLoader)
+        }
+        composable(Screens.AddAnnouncement.route) {
+            AddAnnouncement(navController, addAnnouncementViewModel, svgLoader)
         }
     }
 }

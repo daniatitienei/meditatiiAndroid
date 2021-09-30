@@ -9,14 +9,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
-import coil.decode.SvgDecoder
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
 import com.example.meditatii_gaseste_tiprofesorul.common.FieldType
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
@@ -27,7 +25,11 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @ExperimentalComposeUiApi
 @Composable
-fun Register(navController: NavController, registerViewModel: RegisterViewModel) {
+fun Register(
+    navController: NavController,
+    registerViewModel: RegisterViewModel,
+    svgLoader: ImageLoader
+) {
     val systemUiController = rememberSystemUiController()
 
     SideEffect {
@@ -47,12 +49,6 @@ fun Register(navController: NavController, registerViewModel: RegisterViewModel)
 
     val isValid = android.util.Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches() && password.trim().isNotBlank()
 
-    val imageLoader = ImageLoader.Builder(LocalContext.current)
-        .componentRegistry {
-            add(SvgDecoder(LocalContext.current))
-        }
-        .build()
-
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -62,7 +58,7 @@ fun Register(navController: NavController, registerViewModel: RegisterViewModel)
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = "Inregistrare", style = MaterialTheme.typography.h3)
-        CompositionLocalProvider(LocalImageLoader provides imageLoader) {
+        CompositionLocalProvider(LocalImageLoader provides svgLoader) {
             val imageLink = "https://firebasestorage.googleapis.com/v0/b/gaseste-ti-profesorul.appspot.com/o/svg%2Fusers_profile.png?alt=media&token=afa9927a-83d4-4255-b6bb-0e8f7fe3ea8d"
             val painter = rememberImagePainter(
                 data = imageLink,

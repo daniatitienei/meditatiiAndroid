@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.ImageLoader
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.AccountViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.components.AccountTopBar
@@ -21,7 +22,8 @@ import kotlinx.coroutines.launch
 fun Account(
     navController: NavController,
     auth: FirebaseAuth,
-    accountViewModel: AccountViewModel
+    accountViewModel: AccountViewModel,
+    svgLoader: ImageLoader,
 ) {
     val scope = rememberCoroutineScope()
 
@@ -39,7 +41,7 @@ fun Account(
                 .padding(top = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (!accountViewModel.accountDetails.value.isStudent) ProfessorExtra(accountViewModel)
+            if (!accountViewModel.accountDetails.value.isStudent) ProfessorExtra(accountViewModel, svgLoader)
 
             Text(text = if (accountViewModel.accountDetails.value.isStudent) "Student" else "Profesor")
 
