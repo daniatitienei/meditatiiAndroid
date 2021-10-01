@@ -22,12 +22,14 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.login.Log
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.InputField
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.LoginWithGoogleButton
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.firebase.auth.FirebaseAuth
 
 @ExperimentalComposeUiApi
 @Composable
 fun Login(
     navController: NavController,
     loginViewModel: LoginViewModel,
+    auth: FirebaseAuth,
     svgLoader: ImageLoader
 ) {
     val systemUiController = rememberSystemUiController()
@@ -111,12 +113,7 @@ fun Login(
 
         Button(
             onClick = {
-                loginViewModel.loginWithEmailAndPassword(email.trim(), password.trim())
-
-                if (loginViewModel.emailError.value.isBlank() && loginViewModel.passwordError.value.isBlank())
-                    navController.navigate(Screens.Categories.route) {
-                        launchSingleTop = true
-                    }
+                loginViewModel.loginWithEmailAndPassword(email.trim(), password.trim(), navController)
             },
             modifier = Modifier.fillMaxWidth(),
             shape = CircleShape,

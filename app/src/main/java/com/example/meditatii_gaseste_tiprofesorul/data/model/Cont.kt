@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Cont(
-    val isStudent: Boolean = true,
-    val profil: Map<String, String>? = mapOf()
+    val isStudent: Boolean? = null,
+    val profil: Map<String, String>? = null
 ) : Parcelable

@@ -4,7 +4,7 @@ import com.google.firebase.Timestamp
 
 data class Professor(
     val date: Timestamp = Timestamp.now(),
-    val descriere: String = "",
+    var descriere: String = "",
     val email: String = "",
     var imgUrl: String = "",
     val judet: String = "",

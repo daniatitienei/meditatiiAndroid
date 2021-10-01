@@ -21,11 +21,13 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.A
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.addAnnouncement.AddAnnouncement
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.addAnnouncement.AddAnnouncementViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.categories.CategoriesViewModel
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.createProfessorProfile.CreateProfessorProfile
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.login.LoginViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.RegisterViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.SelectedCategory
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.SelectedCategoryViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.moshi.Moshi
 
 @ExperimentalComposeUiApi
@@ -41,18 +43,50 @@ fun Navigation(
     addAnnouncementViewModel: AddAnnouncementViewModel,
     auth: FirebaseAuth,
     moshi: Moshi,
+    firestore: FirebaseFirestore,
     svgLoader: ImageLoader
 ) {
     val navController = rememberNavController()
 
+    /*
+    * Daca esti student te redirectioneaza pe Categories
+    * Daca esti profesor te pune sa-ti faci un profil
+    * */
+
     NavHost(
         navController = navController,
-        startDestination = if (auth.currentUser == null) Screens.Register.route else Screens.Categories.route
+        startDestination = startDestination(accountViewModel = accountViewModel, auth = auth)
         // TODO Conditie pentru profesori daca nu si-au facut profil sa-i redirectioneze pe ala
         // TODO Cand dai pe register sa te puna sa selectezi rolul
     ) {
+        composable(Screens.Login.route) {
+            Login(
+                navController = navController,
+                loginViewModel = loginViewModel,
+                auth = auth,
+                svgLoader = svgLoader
+            )
+        }
+
+        composable(Screens.Register.route) {
+            Register(
+                navController = navController,
+                registerViewModel = registerViewModel,
+                svgLoader = svgLoader
+            )
+        }
+
+        composable(Screens.CreateProfessorProfile.route) {
+            CreateProfessorProfile()
+        }
+
         composable(Screens.Categories.route) {
-            Categories(navController, categoriesViewModel, auth)
+            Categories(
+                navController = navController,
+                auth = auth,
+                categoriesViewModel = categoriesViewModel,
+                accountViewModel = accountViewModel,
+            )
         }
         composable(
             Screens.SelectedCategory.route,
@@ -62,9 +96,10 @@ fun Navigation(
         ) { backStackEntry ->
             SelectedCategory(
                 navController = navController,
-                selectedCategoryViewModel = selectedCategoryViewModel,
                 numeMaterie = backStackEntry.arguments?.getString("numeMaterie")!!,
-                moshi = moshi
+                moshi = moshi,
+                selectedCategoryViewModel = selectedCategoryViewModel,
+                accountViewModel = accountViewModel,
             )
         }
         composable(
@@ -85,20 +120,39 @@ fun Navigation(
             )
         }
 
-        composable(Screens.Login.route) {
-            Login(navController, loginViewModel, svgLoader)
-        }
-        composable(Screens.Register.route) {
-            Register(navController, registerViewModel, svgLoader)
-        }
         composable(Screens.Account.route) {
-            Account(navController, auth, accountViewModel, svgLoader)
+            Account(
+                navController = navController,
+                auth = auth,
+                accountViewModel = accountViewModel,
+                svgLoader = svgLoader
+            )
         }
         composable(Screens.AddAnnouncement.route) {
-            AddAnnouncement(navController, addAnnouncementViewModel, svgLoader)
+            AddAnnouncement(
+                navController = navController,
+                addAnnouncementViewModel = addAnnouncementViewModel,
+                svgLoader = svgLoader,
+            )
         }
         composable(Screens.SelectRole.route) {
-            SelectRole(navController, svgLoader)
+            SelectRole(
+                navController = navController,
+                firestore = firestore,
+                auth = auth,
+                svgLoader = svgLoader
+            )
         }
     }
+}
+
+fun startDestination(accountViewModel: AccountViewModel, auth: FirebaseAuth): String {
+    if (auth.currentUser == null)
+        return Screens.Register.route
+    else if (auth.currentUser != null && accountViewModel.accountDetails.value.isStudent == null)
+        return Screens.SelectRole.route
+    else if (auth.currentUser != null && !accountViewModel.accountDetails.value.isStudent!! && accountViewModel.accountDetails.value.profil.isNullOrEmpty())
+        return Screens.CreateProfessorProfile.route
+    else
+        return Screens.Categories.route
 }

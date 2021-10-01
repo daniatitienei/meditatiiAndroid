@@ -16,7 +16,6 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.c
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.components.TextListTile
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.categories.components.ProfessorExtra
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.launch
 
 @Composable
 fun Account(
@@ -27,9 +26,9 @@ fun Account(
 ) {
     val scope = rememberCoroutineScope()
 
-    scope.launch {
-        accountViewModel.getAccountDetails()
-    }
+//    scope.launch {
+//        accountViewModel.getAccountDetails()
+//    }
 
     Scaffold(
         topBar = { AccountTopBar(navController = navController) }
@@ -41,14 +40,14 @@ fun Account(
                 .padding(top = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (!accountViewModel.accountDetails.value.isStudent) ProfessorExtra(accountViewModel, svgLoader)
+            if (accountViewModel.accountDetails.value.isStudent == false) ProfessorExtra(accountViewModel, svgLoader)
 
-            Text(text = if (accountViewModel.accountDetails.value.isStudent) "Student" else "Profesor")
+            Text(text = if (accountViewModel.accountDetails.value.isStudent == true) "Student" else "Profesor")
 
             Spacer(modifier = Modifier.height(20.dp))
 
             TextListTile(text = "Setari cont", onClick = {})
-            if (!accountViewModel.accountDetails.value.isStudent) TextListTile(text = "Anunturile mele", onClick = {})
+            if (accountViewModel.accountDetails.value.isStudent == false) TextListTile(text = "Anunturile mele", onClick = {})
             TextListTile(text = "Favorite", onClick = {})
             TextListTile(text = "Deconectare", onClick = {
                 auth.signOut()

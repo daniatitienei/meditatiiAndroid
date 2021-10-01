@@ -80,10 +80,9 @@ fun ProfessorListTile(profesor: Professor, onClick: () -> Unit) {
                 }
             }
             Row(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1.5f),
                 horizontalArrangement = Arrangement.Center
             ) {
-
                 Text(
                     text = "${profesor.pret} LEI",
                     style = MaterialTheme.typography.body2,

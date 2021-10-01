@@ -3,6 +3,8 @@ package com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import com.example.meditatii_gaseste_tiprofesorul.common.Screens
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
@@ -19,13 +21,16 @@ class RegisterViewModel @Inject constructor(
     var passwordError = mutableStateOf<String>("")
         private set
 
-    fun registerWithEmailAndPassword(email: String, password: String) {
+    fun registerWithEmailAndPassword(email: String, password: String, navController: NavController) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("cont", "createUser: success")
                     auth.signInWithEmailAndPassword(email, password)
 
+                    navController.navigate(Screens.SelectRole.route) {
+                        launchSingleTop = true
+                    }
                 } else {
                     Log.d("cont", "createUser: failed")
                     try {

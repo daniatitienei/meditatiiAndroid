@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,7 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
+import com.example.meditatii_gaseste_tiprofesorul.common.components.AddAnnouncementButton
 import com.example.meditatii_gaseste_tiprofesorul.data.model.Professor
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.AccountViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.components.ProfessorListTile
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.components.SelectedCategoryTopBar
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -27,11 +30,11 @@ import java.nio.charset.StandardCharsets
 @Composable
 fun SelectedCategory(
     navController: NavController = rememberNavController(),
-    selectedCategoryViewModel: SelectedCategoryViewModel,
     numeMaterie: String = "",
     moshi: Moshi,
+    selectedCategoryViewModel: SelectedCategoryViewModel,
+    accountViewModel: AccountViewModel
 ) {
-//    TODO O implementare mai buna a refresh-ului cand alegi alta categorie
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(scope) {
@@ -48,10 +51,18 @@ fun SelectedCategory(
     }
 
     Scaffold(
-        topBar = { SelectedCategoryTopBar(
-            navController = navController,
-            title = numeMaterie
-        ) }
+        topBar = {
+            SelectedCategoryTopBar(
+                navController = navController,
+                title = numeMaterie
+            )
+        },
+        floatingActionButton = {
+            if (!accountViewModel.accountDetails.value.isStudent!!)
+                AddAnnouncementButton(navController = navController)
+        },
+        floatingActionButtonPosition = FabPosition.Center,
+        isFloatingActionButtonDocked = true,
     ) {
         LazyColumn {
             items(selectedCategoryViewModel.profesoriList.size) {
@@ -59,6 +70,7 @@ fun SelectedCategory(
                     profesor = selectedCategoryViewModel.profesoriList[it],
                     onClick = {
                         selectedCategoryViewModel.profesoriList[it].imgUrl = URLEncoder.encode(selectedCategoryViewModel.profesoriList[it].imgUrl, StandardCharsets.UTF_8.toString())
+                        selectedCategoryViewModel.profesoriList[it].descriere = reverseSlash(selectedCategoryViewModel.profesoriList[it].descriere)
                         val jsonAdapter = moshi.adapter(Professor::class.java)
                         val professorJson = jsonAdapter.toJson(selectedCategoryViewModel.profesoriList[it])
 
@@ -73,3 +85,5 @@ fun SelectedCategory(
         }
     }
 }
+
+fun reverseSlash(text: String): String = text.replace("/", "\\")

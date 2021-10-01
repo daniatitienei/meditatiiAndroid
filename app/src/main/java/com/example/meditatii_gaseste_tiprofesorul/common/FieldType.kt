@@ -6,4 +6,5 @@ enum class FieldType {
     EMAIL,
     PASSWORD,
     PHONE_NUMBER,
+    BASIC_TEXT
 }

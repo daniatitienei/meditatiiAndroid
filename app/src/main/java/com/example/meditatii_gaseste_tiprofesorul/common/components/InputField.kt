@@ -29,6 +29,7 @@ fun InputField(
     onValueChange: (text: String) -> Unit,
     placeholder: String,
     error: String = "",
+    leadingIcon: @Composable() (() -> Unit)? = null,
     type: FieldType
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -54,8 +55,9 @@ fun InputField(
                     else -> null
                 }
             },
+            leadingIcon = leadingIcon,
             visualTransformation = when(type) {
-                FieldType.PASSWORD -> PasswordVisualTransformation()
+                FieldType.PASSWORD -> if (obscureText) PasswordVisualTransformation() else VisualTransformation.None
                 FieldType.PHONE_NUMBER -> PhoneNumberVisualTransformation()
                 else -> VisualTransformation.None
             },

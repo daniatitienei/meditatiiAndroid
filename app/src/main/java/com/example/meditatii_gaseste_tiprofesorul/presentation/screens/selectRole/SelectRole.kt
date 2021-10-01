@@ -20,11 +20,16 @@ import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
+import com.example.meditatii_gaseste_tiprofesorul.common.Screens
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun SelectRole(
     navController: NavController,
+    firestore: FirebaseFirestore,
+    auth: FirebaseAuth,
     svgLoader: ImageLoader,
 ) {
     val systemUiController = rememberSystemUiController()
@@ -80,11 +85,31 @@ fun SelectRole(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            RoleButton(text = "Student", onClick = {})
+            RoleButton(text = "Student", onClick = {
+                firestore.collection("users")
+                    .document(auth.currentUser?.email!!)
+                    .set(hashMapOf(
+                        "isStudent" to true
+                    ))
+
+                navController.navigate(Screens.Categories.route) {
+                    launchSingleTop = true
+                }
+            })
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            RoleButton(text = "Profesor", onClick = {})
+            RoleButton(text = "Profesor", onClick = {
+                firestore.collection("users")
+                    .document(auth.currentUser?.email!!)
+                    .set(hashMapOf(
+                        "isStudent" to false
+                    ))
+
+                navController.navigate(Screens.CreateProfessorProfile.route) {
+                    launchSingleTop = true
+                }
+            })
         }
     }
 }
