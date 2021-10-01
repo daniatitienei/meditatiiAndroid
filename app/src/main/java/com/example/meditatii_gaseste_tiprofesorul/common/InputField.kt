@@ -1,6 +1,7 @@
 package com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -8,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
@@ -49,6 +51,7 @@ fun InputField(
                         //                TODO Bag iconita cu ochi
                     }
                     FieldType.PRICE -> Text(text = "Lei")
+                    else -> null
                 }
             },
             visualTransformation = when(type) {
@@ -61,6 +64,7 @@ fun InputField(
                 focusedIndicatorColor = Purple700,
                 cursorColor = Purple700,
             ),
+            modifier = if (type == FieldType.PASSWORD || type == FieldType.EMAIL) Modifier.fillMaxWidth() else Modifier,
             placeholder = { Text(text = placeholder) },
             maxLines = if (type == FieldType.DESCRIPTION) 5 else 1,
             keyboardOptions = KeyboardOptions(

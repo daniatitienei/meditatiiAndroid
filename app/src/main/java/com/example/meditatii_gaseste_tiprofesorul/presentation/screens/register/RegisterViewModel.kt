@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val auth: FirebaseAuth
+    private val auth: FirebaseAuth,
 ): ViewModel() {
     var emailError = mutableStateOf<String>("")
         private set
@@ -24,6 +24,8 @@ class RegisterViewModel @Inject constructor(
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("cont", "createUser: success")
+                    auth.signInWithEmailAndPassword(email, password)
+
                 } else {
                     Log.d("cont", "createUser: failed")
                     try {

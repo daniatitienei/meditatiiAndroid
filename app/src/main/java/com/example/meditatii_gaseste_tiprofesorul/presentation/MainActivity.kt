@@ -56,7 +56,6 @@ class MainActivity : ComponentActivity() {
                         moshi = moshi,
                         svgLoader = svgLoader,
                     )
-//                    AddAnnouncement(svgLoader = svgLoader)
                 }
             }
         }

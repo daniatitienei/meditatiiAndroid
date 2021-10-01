@@ -48,6 +48,8 @@ fun Navigation(
     NavHost(
         navController = navController,
         startDestination = if (auth.currentUser == null) Screens.Register.route else Screens.Categories.route
+        // TODO Conditie pentru profesori daca nu si-au facut profil sa-i redirectioneze pe ala
+        // TODO Cand dai pe register sa te puna sa selectezi rolul
     ) {
         composable(Screens.Categories.route) {
             Categories(navController, categoriesViewModel, auth)
@@ -94,6 +96,9 @@ fun Navigation(
         }
         composable(Screens.AddAnnouncement.route) {
             AddAnnouncement(navController, addAnnouncementViewModel, svgLoader)
+        }
+        composable(Screens.SelectRole.route) {
+            SelectRole(navController, svgLoader)
         }
     }
 }
