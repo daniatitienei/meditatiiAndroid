@@ -10,6 +10,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
@@ -26,8 +27,8 @@ import com.google.firebase.auth.FirebaseAuth
 fun Categories(
     navController: NavController,
     auth: FirebaseAuth,
-    categoriesViewModel: CategoriesViewModel,
-    accountViewModel: AccountViewModel
+    categoriesViewModel: CategoriesViewModel = hiltViewModel(),
+    accountViewModel: AccountViewModel = hiltViewModel()
 ) {
     val systemUiController = rememberSystemUiController()
 

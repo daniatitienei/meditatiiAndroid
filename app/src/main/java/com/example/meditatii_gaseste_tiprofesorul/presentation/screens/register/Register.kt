@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
@@ -27,7 +28,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 @Composable
 fun Register(
     navController: NavController,
-    registerViewModel: RegisterViewModel,
+    registerViewModel: RegisterViewModel = hiltViewModel(),
     svgLoader: ImageLoader
 ) {
     val systemUiController = rememberSystemUiController()

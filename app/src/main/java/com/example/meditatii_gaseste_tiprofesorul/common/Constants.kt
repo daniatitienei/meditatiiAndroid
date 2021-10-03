@@ -1,6 +1,6 @@
 package com.example.meditatii_gaseste_tiprofesorul.common
 
-import com.example.meditatii_gaseste_tiprofesorul.data.model.Professor
+import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
 
 object Constants {
     val prof = Professor(
@@ -16,4 +16,6 @@ object Constants {
         numar = "0730998488",
         materie = "Informatica",
     )
+
+    val CITY_API_BASE_URL = "https://raw.githubusercontent.com"
 }

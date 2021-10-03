@@ -1,4 +1,4 @@
-package com.example.meditatii_gaseste_tiprofesorul.data.model
+package com.example.meditatii_gaseste_tiprofesorul.domain.model
 
 import com.google.firebase.Timestamp
 

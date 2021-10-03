@@ -13,11 +13,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
 import com.example.meditatii_gaseste_tiprofesorul.common.components.AddAnnouncementButton
-import com.example.meditatii_gaseste_tiprofesorul.data.model.Professor
+import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.AccountViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.components.ProfessorListTile
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.components.SelectedCategoryTopBar
@@ -32,8 +33,8 @@ fun SelectedCategory(
     navController: NavController = rememberNavController(),
     numeMaterie: String = "",
     moshi: Moshi,
-    selectedCategoryViewModel: SelectedCategoryViewModel,
-    accountViewModel: AccountViewModel
+    selectedCategoryViewModel: SelectedCategoryViewModel = hiltViewModel(),
+    accountViewModel: AccountViewModel = hiltViewModel()
 ) {
     val scope = rememberCoroutineScope()
 

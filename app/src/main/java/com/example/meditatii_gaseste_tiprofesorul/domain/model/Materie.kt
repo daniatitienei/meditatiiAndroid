@@ -1,4 +1,4 @@
-package com.example.meditatii_gaseste_tiprofesorul.data.model
+package com.example.meditatii_gaseste_tiprofesorul.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

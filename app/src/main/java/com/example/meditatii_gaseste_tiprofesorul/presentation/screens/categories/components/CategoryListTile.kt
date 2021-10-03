@@ -25,7 +25,7 @@ import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
-import com.example.meditatii_gaseste_tiprofesorul.data.model.Materie
+import com.example.meditatii_gaseste_tiprofesorul.domain.model.Materie
 
 @ExperimentalCoilApi
 @Composable

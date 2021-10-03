@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
-import com.example.meditatii_gaseste_tiprofesorul.data.model.Professor
+import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
 
 @Composable
 fun ProfessorCard(

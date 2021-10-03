@@ -8,6 +8,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.ImageLoader
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
@@ -21,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 fun Account(
     navController: NavController,
     auth: FirebaseAuth,
-    accountViewModel: AccountViewModel,
+    accountViewModel: AccountViewModel = hiltViewModel(),
     svgLoader: ImageLoader,
 ) {
     val scope = rememberCoroutineScope()

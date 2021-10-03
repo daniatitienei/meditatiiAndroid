@@ -2,7 +2,7 @@ package com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.meditatii_gaseste_tiprofesorul.data.model.Cont
+import com.example.meditatii_gaseste_tiprofesorul.domain.model.Cont
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel

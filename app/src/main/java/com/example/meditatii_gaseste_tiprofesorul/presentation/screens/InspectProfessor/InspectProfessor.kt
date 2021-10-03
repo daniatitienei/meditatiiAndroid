@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.ImageLoader
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
-import com.example.meditatii_gaseste_tiprofesorul.data.model.Professor
+import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.InspectProfessor.components.ContactTile
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.InspectProfessor.components.InspectProfessorTopBar
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.InspectProfessor.components.ProfessorCard

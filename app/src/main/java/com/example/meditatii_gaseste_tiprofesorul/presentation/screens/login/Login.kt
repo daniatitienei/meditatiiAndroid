@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
@@ -28,7 +29,7 @@ import com.google.firebase.auth.FirebaseAuth
 @Composable
 fun Login(
     navController: NavController,
-    loginViewModel: LoginViewModel,
+    loginViewModel: LoginViewModel = hiltViewModel(),
     auth: FirebaseAuth,
     svgLoader: ImageLoader
 ) {
