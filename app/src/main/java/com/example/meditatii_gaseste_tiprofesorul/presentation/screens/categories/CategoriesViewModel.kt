@@ -7,10 +7,6 @@ import com.example.meditatii_gaseste_tiprofesorul.domain.model.Materie
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObjects
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,8 +16,7 @@ class CategoriesViewModel @Inject constructor(
     var categoriesList = mutableStateListOf<Materie>()
         private set
 
-    suspend fun fetchMaterii() {
-        withContext(Dispatchers.Main) {
+    fun fetchMaterii() {
             firestore.collection("materii")
                 .addSnapshotListener { value, error ->
                     if (error != null) {
@@ -30,17 +25,13 @@ class CategoriesViewModel @Inject constructor(
                     }
 
                     for (document in value!!.toObjects<Materie>()) {
-//                    FIXME Da crash cand apesi pe fata de la info
                         categoriesList.add(document)
                     }
                 }
-        }
 
     }
 
     init {
-        GlobalScope.launch(Dispatchers.IO) {
-            fetchMaterii()
-        }
+        fetchMaterii()
     }
 }

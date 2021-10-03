@@ -4,18 +4,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
 import com.example.meditatii_gaseste_tiprofesorul.common.FieldType
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.createProfessorProfile.components.CityPicker
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.InputField
 import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTheme
-import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
@@ -43,10 +42,6 @@ fun CreateProfessorProfile(
     var county by remember {
         mutableStateOf("")
     }
-
-    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
-    )
 
     val scope = rememberCoroutineScope()
 
@@ -79,20 +74,8 @@ fun CreateProfessorProfile(
                 leadingIcon = { Text(text = "+ 40") },
                 type = FieldType.PHONE_NUMBER
             )
-
-            Button(onClick = { scope.launch {
-                if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
-                    bottomSheetScaffoldState.bottomSheetState.expand()
-                } else {
-                    bottomSheetScaffoldState.bottomSheetState.collapse()
-                }
-            } }) {
-                Text(text = "Launch", color = Purple700)
-            }
         }
-
-        CityPicker(state = bottomSheetScaffoldState)
-//        TODO Orasul, judetul
+        CityPicker()
     }
 }
 

@@ -6,10 +6,6 @@ import com.example.meditatii_gaseste_tiprofesorul.domain.model.Cont
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,8 +17,7 @@ class AccountViewModel @Inject constructor(
     var accountDetails = mutableStateOf(Cont())
         private set
 
-    suspend fun getAccountDetails() {
-        withContext(Dispatchers.Main) {
+    fun getAccountDetails() {
             auth.currentUser?.email?.let {
                 firestore.collection("users")
                     .document(it)
@@ -40,13 +35,11 @@ class AccountViewModel @Inject constructor(
                             accountDetails.value = account
                         }
                     }
-            }
+
         }
     }
 
     init {
-        GlobalScope.launch(Dispatchers.IO) {
-            getAccountDetails()
-        }
+        getAccountDetails()
     }
 }

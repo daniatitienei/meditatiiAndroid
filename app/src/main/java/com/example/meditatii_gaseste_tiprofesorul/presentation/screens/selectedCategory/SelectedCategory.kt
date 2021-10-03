@@ -59,8 +59,9 @@ fun SelectedCategory(
             )
         },
         floatingActionButton = {
-            if (!accountViewModel.accountDetails.value.isStudent!!)
-                AddAnnouncementButton(navController = navController)
+            if (accountViewModel.accountDetails.value.isStudent != null)
+                if (!accountViewModel.accountDetails.value.isStudent!!)
+                    AddAnnouncementButton(navController = navController)
         },
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,

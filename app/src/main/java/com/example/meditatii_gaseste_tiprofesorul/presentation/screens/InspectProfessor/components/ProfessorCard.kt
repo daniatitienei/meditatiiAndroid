@@ -38,7 +38,10 @@ fun ProfessorCard(
                modifier = Modifier.weight(1f)
             ) {
                 CompositionLocalProvider(LocalImageLoader provides svgLoader) {
-                    val painter = rememberImagePainter(data = profesor.imgUrl)
+                    val painter = rememberImagePainter(
+                        data = profesor.imgUrl,
+                        builder = { crossfade(true) }
+                    )
 
                     Image(
                         painter = painter,
