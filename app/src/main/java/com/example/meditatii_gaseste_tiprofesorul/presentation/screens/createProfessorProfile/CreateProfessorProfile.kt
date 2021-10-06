@@ -4,8 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -19,9 +18,7 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTh
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @Composable
-fun CreateProfessorProfile(
-
-) {
+fun CreateProfessorProfile() {
 
     var lastName by remember {
         mutableStateOf("")
@@ -43,7 +40,15 @@ fun CreateProfessorProfile(
         mutableStateOf("")
     }
 
+    var oras by remember {
+        mutableStateOf("")
+    }
+
     val scope = rememberCoroutineScope()
+
+    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
+    )
 
     Column(
         modifier = Modifier
@@ -75,7 +80,15 @@ fun CreateProfessorProfile(
                 type = FieldType.PHONE_NUMBER
             )
         }
-        CityPicker()
+
+        // FIXME se inchide cand selectezi o valoare
+
+        CityPicker(
+            value = lastName,
+            onClick = { oras = it },
+            placeholder = "Selectati un oras",
+            bottomSheetScaffoldState = bottomSheetScaffoldState
+        )
     }
 }
 

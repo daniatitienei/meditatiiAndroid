@@ -9,7 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.ExperimentalComposeUiApi
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
-import com.example.meditatii_gaseste_tiprofesorul.Navigation
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.createProfessorProfile.CreateProfessorProfile
 import com.example.meditatii_gaseste_tiprofesorul.presentation.theme.MeditatiiTheme
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -33,12 +33,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             MeditatiiTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    Navigation(
-                        auth = auth,
-                        firestore = firestore,
-                        moshi = moshi,
-                        svgLoader = svgLoader,
-                    )
+//                    Navigation(
+//                        auth = auth,
+//                        firestore = firestore,
+//                        moshi = moshi,
+//                        svgLoader = svgLoader,
+//                    )
+                    CreateProfessorProfile()
                 }
             }
         }

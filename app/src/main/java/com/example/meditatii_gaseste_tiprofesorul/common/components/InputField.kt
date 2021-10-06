@@ -1,5 +1,7 @@
 package com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components
 
+import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
@@ -26,11 +28,13 @@ import com.example.meditatii_gaseste_tiprofesorul.common.PhoneNumberVisualTransf
 @Composable
 fun InputField(
     value: String,
-    onValueChange: (text: String) -> Unit,
+    onValueChange: (text: String) -> Unit = {},
     placeholder: String,
     error: String = "",
     leadingIcon: @Composable() (() -> Unit)? = null,
-    type: FieldType
+    type: FieldType,
+    enabled: Boolean = true,
+    onClick: () -> Unit = {},
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var obscureText by remember {
@@ -66,7 +70,7 @@ fun InputField(
                 focusedIndicatorColor = Purple700,
                 cursorColor = Purple700,
             ),
-            modifier = if (type == FieldType.PASSWORD || type == FieldType.EMAIL) Modifier.fillMaxWidth() else Modifier,
+            modifier = myModifier(type, enabled, onClick),
             placeholder = { Text(text = placeholder) },
             maxLines = if (type == FieldType.DESCRIPTION) 5 else 1,
             keyboardOptions = KeyboardOptions(
@@ -85,10 +89,18 @@ fun InputField(
                     keyboardController?.hide()
                 }
             ),
-
+            enabled = enabled,
             isError = error.isNotBlank()
         )
         if (error.isNotBlank()) Text(text = error, style = TextStyle(color = Color.Red, fontSize = 13.sp))
     }
-    
+}
+
+fun myModifier(type: FieldType, enabled: Boolean, onClick: () -> Unit): Modifier {
+    Log.d("este", enabled.toString())
+    return if (type == FieldType.PASSWORD || type == FieldType.EMAIL)
+        Modifier.fillMaxWidth()
+    else if (!enabled)
+        Modifier.clickable { onClick() }
+    else Modifier
 }
