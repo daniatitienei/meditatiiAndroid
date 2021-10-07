@@ -19,9 +19,11 @@ import coil.compose.rememberImagePainter
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
 import com.example.meditatii_gaseste_tiprofesorul.common.FieldType
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.AccountViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.login.LoginViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.InputField
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.LoginWithGoogleButton
+import com.example.meditatii_gaseste_tiprofesorul.startDestination
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.firebase.auth.FirebaseAuth
 
@@ -29,9 +31,10 @@ import com.google.firebase.auth.FirebaseAuth
 @Composable
 fun Login(
     navController: NavController,
-    loginViewModel: LoginViewModel = hiltViewModel(),
+    svgLoader: ImageLoader,
     auth: FirebaseAuth,
-    svgLoader: ImageLoader
+    loginViewModel: LoginViewModel = hiltViewModel(),
+    accountViewModel: AccountViewModel = hiltViewModel()
 ) {
     val systemUiController = rememberSystemUiController()
 
@@ -114,7 +117,16 @@ fun Login(
 
         Button(
             onClick = {
-                loginViewModel.loginWithEmailAndPassword(email.trim(), password.trim(), navController)
+                loginViewModel.loginWithEmailAndPassword(email.trim(), password.trim()) {
+                    navController.navigate(
+                        startDestination(
+                            accountViewModel = accountViewModel,
+                            auth = auth
+                        )
+                    ) {
+                        launchSingleTop = true
+                    }
+                }
             },
             modifier = Modifier.fillMaxWidth(),
             shape = CircleShape,

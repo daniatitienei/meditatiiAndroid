@@ -39,11 +39,6 @@ fun Navigation(
 ) {
     val navController = rememberNavController()
 
-    /*
-    * Daca esti student te redirectioneaza pe Categories
-    * Daca esti profesor te pune sa-ti faci un profil
-    * */
-
     NavHost(
         navController = navController,
         startDestination = startDestination(accountViewModel = accountViewModel, auth = auth)
@@ -53,8 +48,8 @@ fun Navigation(
         composable(Screens.Login.route) {
             Login(
                 navController = navController,
-                auth = auth,
-                svgLoader = svgLoader
+                svgLoader = svgLoader,
+                auth = auth
             )
         }
 
@@ -66,7 +61,10 @@ fun Navigation(
         }
 
         composable(Screens.CreateProfessorProfile.route) {
-            CreateProfessorProfile()
+            CreateProfessorProfile(
+                navController = navController,
+                auth = auth
+            )
         }
 
         composable(Screens.Categories.route) {
@@ -130,12 +128,12 @@ fun Navigation(
 }
 
 fun startDestination(accountViewModel: AccountViewModel, auth: FirebaseAuth): String {
-    if (auth.currentUser == null)
-        return Screens.Register.route
+    return if (auth.currentUser == null)
+        Screens.Register.route
     else if (auth.currentUser != null && accountViewModel.accountDetails.value.isStudent == null)
-        return Screens.SelectRole.route
+        Screens.SelectRole.route
     else if (auth.currentUser != null && !accountViewModel.accountDetails.value.isStudent!! && accountViewModel.accountDetails.value.profil.isNullOrEmpty())
-        return Screens.CreateProfessorProfile.route
+        Screens.CreateProfessorProfile.route
     else
-        return Screens.Categories.route
+        Screens.Categories.route
 }
