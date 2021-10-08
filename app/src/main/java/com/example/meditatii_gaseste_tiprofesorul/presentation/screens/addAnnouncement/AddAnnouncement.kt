@@ -18,18 +18,24 @@ import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
 import com.example.meditatii_gaseste_tiprofesorul.common.FieldType
+import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.AccountViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.addAnnouncement.components.AddAnnouncementTopBar
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.addAnnouncement.components.MateriePicker
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.InputField
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.firebase.auth.FirebaseAuth
+import java.util.*
 
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Composable
 fun AddAnnouncement(
     navController: NavController = rememberNavController(),
-    addAnnouncementViewModel: AddAnnouncementViewModel = hiltViewModel(),
     svgLoader: ImageLoader,
+    addAnnouncementViewModel: AddAnnouncementViewModel = hiltViewModel(),
+    accountViewModel: AccountViewModel = hiltViewModel(),
+    auth: FirebaseAuth
 ) {
     var description by remember {
         mutableStateOf("")
@@ -139,7 +145,26 @@ fun AddAnnouncement(
                 )
             }
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    val profil = accountViewModel.accountDetails.value.profil
+
+                    addAnnouncementViewModel.addAnnouncement(
+                        professor = Professor(
+                            descriere = description,
+                            nume = profil?.get("nume")!!,
+                            prenume = profil["prenume"]!!,
+                            numar = profil["numar"]!!,
+                            imgUrl = profil["imgUrl"]!!,
+                            oras = profil["oras"]!!,
+                            judet = profil["judet"]!!,
+                            email = auth.currentUser?.email!!,
+                            uuid = UUID.randomUUID().toString(),
+                            pret = price.toInt(),
+                            materie = selectedMaterie,
+                        ),
+                        navController = navController
+                    )
+                },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Purple700
                 ),

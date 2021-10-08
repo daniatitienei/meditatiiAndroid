@@ -1,14 +1,14 @@
 package com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,6 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import coil.annotation.ExperimentalCoilApi
+import com.airbnb.lottie.compose.*
+import com.example.meditatii_gaseste_tiprofesorul.common.Constants
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
 import com.example.meditatii_gaseste_tiprofesorul.common.components.AddAnnouncementButton
 import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
@@ -27,6 +30,8 @@ import com.squareup.moshi.Moshi
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
+@ExperimentalFoundationApi
+@ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
 fun SelectedCategory(
@@ -38,9 +43,7 @@ fun SelectedCategory(
 ) {
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect(scope) {
-        selectedCategoryViewModel.getProfesoriList(numeMaterie)
-    }
+    selectedCategoryViewModel.getProfesoriList(numeMaterie)
 
     val systemUiController = rememberSystemUiController()
 
@@ -66,23 +69,38 @@ fun SelectedCategory(
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
     ) {
-        LazyColumn {
-            items(selectedCategoryViewModel.profesoriList.size) {
-                ProfessorListTile(
-                    profesor = selectedCategoryViewModel.profesoriList[it],
-                    onClick = {
-                        selectedCategoryViewModel.profesoriList[it].imgUrl = URLEncoder.encode(selectedCategoryViewModel.profesoriList[it].imgUrl, StandardCharsets.UTF_8.toString())
-                        selectedCategoryViewModel.profesoriList[it].descriere = reverseSlash(selectedCategoryViewModel.profesoriList[it].descriere)
-                        val jsonAdapter = moshi.adapter(Professor::class.java)
-                        val professorJson = jsonAdapter.toJson(selectedCategoryViewModel.profesoriList[it])
+        if (!selectedCategoryViewModel.profesoriList.isEmpty())
+            LazyColumn {
+                items(selectedCategoryViewModel.profesoriList.size) {
+                    ProfessorListTile(
+                        professor = selectedCategoryViewModel.profesoriList[it],
+                        onClick = {
+                            selectedCategoryViewModel.profesoriList[it].imgUrl = URLEncoder.encode(selectedCategoryViewModel.profesoriList[it].imgUrl, StandardCharsets.UTF_8.toString())
+                            selectedCategoryViewModel.profesoriList[it].descriere = reverseSlash(selectedCategoryViewModel.profesoriList[it].descriere)
+                            val jsonAdapter = moshi.adapter(Professor::class.java)
+                            val professorJson = jsonAdapter.toJson(selectedCategoryViewModel.profesoriList[it])
 
-                        navController.navigate(
-                            Screens.InspectProfessor.route.replace("{professor}", professorJson)
-                        )
-                    }
-                )
+                            navController.navigate(
+                                Screens.InspectProfessor.route.replace("{professor}", professorJson)
+                            ) { launchSingleTop = true }
+                        }
+                    )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
+                }
+            }
+        else {
+            val composition by rememberLottieComposition(spec = LottieCompositionSpec.Url(Constants.EMTPY_DESK_LOTTIE_ANIMATION_URL))
+            val progress by animateLottieCompositionAsState(
+                composition = composition,
+                iterations = LottieConstants.IterateForever
+            )
+
+            Column(
+                modifier = Modifier.fillMaxHeight(),
+                verticalArrangement = Arrangement.Center
+            ) {
+                LottieAnimation(composition = composition, progress = progress)
             }
         }
     }

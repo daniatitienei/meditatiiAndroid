@@ -3,6 +3,7 @@ package com.example.meditatii_gaseste_tiprofesorul.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -17,6 +18,7 @@ import com.squareup.moshi.Moshi
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @ExperimentalCoilApi
 @AndroidEntryPoint

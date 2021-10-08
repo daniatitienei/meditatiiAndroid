@@ -1,5 +1,6 @@
 package com.example.meditatii_gaseste_tiprofesorul
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -20,12 +21,16 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.Login
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.Register
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.AccountViewModel
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.addAnnouncement.AddAnnouncement
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.announcementPosted.AnnouncementPosted
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.createProfessorProfile.CreateProfessorProfile
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.favorites.Favorites
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.myAnnouncements.MyAnnouncements
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.SelectedCategory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.moshi.Moshi
 
+@ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @ExperimentalCoilApi
@@ -73,6 +78,21 @@ fun Navigation(
                 auth = auth,
             )
         }
+
+        composable(Screens.Favorites.route) {
+            Favorites(
+                navController = navController,
+                moshi = moshi,
+            )
+        }
+
+        composable(Screens.MyAnnouncements.route) {
+            MyAnnouncements(
+                navController = navController,
+                moshi = moshi,
+            )
+        }
+
         composable(
             Screens.SelectedCategory.route,
             arguments = listOf(
@@ -85,6 +105,7 @@ fun Navigation(
                 moshi = moshi,
             )
         }
+
         composable(
             Screens.InspectProfessor.route,
             arguments = listOf(
@@ -114,6 +135,7 @@ fun Navigation(
             AddAnnouncement(
                 navController = navController,
                 svgLoader = svgLoader,
+                auth = auth
             )
         }
         composable(Screens.SelectRole.route) {
@@ -123,6 +145,10 @@ fun Navigation(
                 auth = auth,
                 svgLoader = svgLoader
             )
+        }
+
+        composable(Screens.AnnouncementPosted.route) {
+            AnnouncementPosted(navController)
         }
     }
 }

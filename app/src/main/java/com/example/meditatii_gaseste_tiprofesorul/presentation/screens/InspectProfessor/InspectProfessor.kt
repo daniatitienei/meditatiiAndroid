@@ -43,7 +43,7 @@ fun InspectProfessor(
     }
 
     Scaffold(
-        topBar = { InspectProfessorTopBar(navController) }
+        topBar = { InspectProfessorTopBar(navController = navController, professor = professor) }
     ) {
         Column(
             modifier = Modifier.fillMaxHeight()

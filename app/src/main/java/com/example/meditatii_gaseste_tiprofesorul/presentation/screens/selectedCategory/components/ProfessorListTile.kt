@@ -1,7 +1,9 @@
 package com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
@@ -19,14 +21,21 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
 import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
 
+@ExperimentalFoundationApi
+@ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
-fun ProfessorListTile(profesor: Professor, onClick: () -> Unit) {
+fun ProfessorListTile(
+    professor: Professor,
+    onClick: () -> Unit,
+    onLongClick: () -> Unit = {}
+) {
 
     val imageLoader = ImageLoader.Builder(LocalContext.current)
         .componentRegistry {
@@ -36,10 +45,16 @@ fun ProfessorListTile(profesor: Professor, onClick: () -> Unit) {
 
     Card(
         elevation = 2.dp,
-        onClick = onClick
+//        onClick = onClick
+        modifier = Modifier.combinedClickable(
+            onClick = onClick,
+            onDoubleClick = {},
+            onLongClick = onLongClick
+        )
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .background(Color.White)
                 .padding(horizontal = 20.dp, vertical = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -49,11 +64,13 @@ fun ProfessorListTile(profesor: Professor, onClick: () -> Unit) {
                 modifier = Modifier.weight(5f)
             ) {
                 Box(
-                    modifier = Modifier.size(50.dp).clip(CircleShape)
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clip(CircleShape)
                 ) {
                     CompositionLocalProvider(LocalImageLoader provides imageLoader) {
                         val painter = rememberImagePainter(
-                            data = profesor.imgUrl,
+                            data = professor.imgUrl,
                             builder = {
                                 crossfade(true)
                             }
@@ -71,12 +88,12 @@ fun ProfessorListTile(profesor: Professor, onClick: () -> Unit) {
 
                 Column {
                     Text(
-                        text = "${profesor.nume} ${profesor.prenume}",
+                        text = "${professor.nume} ${professor.prenume}",
                         style = MaterialTheme.typography.body2,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Text(profesor.judet)
+                    Text(professor.judet)
                 }
             }
             Row(
@@ -84,7 +101,7 @@ fun ProfessorListTile(profesor: Professor, onClick: () -> Unit) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "${profesor.pret} LEI",
+                    text = "${professor.pret} LEI",
                     style = MaterialTheme.typography.body2,
                 )
             }

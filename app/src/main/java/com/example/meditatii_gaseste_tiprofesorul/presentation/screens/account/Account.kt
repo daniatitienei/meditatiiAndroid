@@ -4,9 +4,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -16,6 +18,7 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.A
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.components.AccountTopBar
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.account.components.TextListTile
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.categories.components.ProfessorExtra
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
@@ -27,9 +30,14 @@ fun Account(
 ) {
     val scope = rememberCoroutineScope()
 
-//    scope.launch {
-//        accountViewModel.getAccountDetails()
-//    }
+    val systemUiController = rememberSystemUiController()
+
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = Color.White,
+            darkIcons = true
+        )
+    }
 
     Scaffold(
         topBar = { AccountTopBar(navController = navController) }
@@ -47,9 +55,12 @@ fun Account(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            TextListTile(text = "Setari cont", onClick = {})
-            if (accountViewModel.accountDetails.value.isStudent == false) TextListTile(text = "Anunturile mele", onClick = {})
-            TextListTile(text = "Favorite", onClick = {})
+            if (accountViewModel.accountDetails.value.isStudent == false) TextListTile(text = "Anunturile mele", onClick = {
+                navController.navigate(Screens.MyAnnouncements.route) { launchSingleTop = true }
+            })
+            TextListTile(text = "Favorite", onClick = {
+                navController.navigate(Screens.Favorites.route) { launchSingleTop = true }
+            })
             TextListTile(text = "Deconectare", onClick = {
                 auth.signOut()
                 navController.navigate(Screens.Login.route) {
