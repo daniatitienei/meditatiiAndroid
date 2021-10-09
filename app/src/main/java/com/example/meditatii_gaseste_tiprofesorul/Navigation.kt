@@ -24,8 +24,10 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.addAnnoun
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.announcementPosted.AnnouncementPosted
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.createProfessorProfile.CreateProfessorProfile
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.favorites.Favorites
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.filters.Filters
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.myAnnouncements.MyAnnouncements
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.SelectedCategory
+import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory.SelectedCategoryViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.moshi.Moshi
@@ -40,7 +42,8 @@ fun Navigation(
     moshi: Moshi,
     firestore: FirebaseFirestore,
     svgLoader: ImageLoader,
-    accountViewModel: AccountViewModel = hiltViewModel()
+    accountViewModel: AccountViewModel = hiltViewModel(),
+    selectedCategoryViewModel: SelectedCategoryViewModel = hiltViewModel()
 ) {
     val navController = rememberNavController()
 
@@ -103,6 +106,7 @@ fun Navigation(
                 navController = navController,
                 numeMaterie = backStackEntry.arguments?.getString("numeMaterie")!!,
                 moshi = moshi,
+                selectedCategoryViewModel = selectedCategoryViewModel
             )
         }
 
@@ -148,7 +152,14 @@ fun Navigation(
         }
 
         composable(Screens.AnnouncementPosted.route) {
-            AnnouncementPosted(navController)
+            AnnouncementPosted(navController = navController)
+        }
+
+        composable(Screens.Filters.route) {
+            Filters(
+                navController = navController,
+                selectedCategoryViewModel = selectedCategoryViewModel
+            )
         }
     }
 }

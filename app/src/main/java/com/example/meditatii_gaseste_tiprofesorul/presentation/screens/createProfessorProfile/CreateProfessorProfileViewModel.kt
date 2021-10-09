@@ -2,6 +2,8 @@ package com.example.meditatii_gaseste_tiprofesorul.presentation.screens.createPr
 
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import com.example.meditatii_gaseste_tiprofesorul.common.Screens
 import com.example.meditatii_gaseste_tiprofesorul.domain.model.ProfessorProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,7 +21,7 @@ class CreateProfessorProfileViewModel @Inject constructor(
     private val storage: FirebaseStorage
 ): ViewModel() {
 
-    fun uploadProfilePicture(bitmap: Bitmap, professorProfile: ProfessorProfile) {
+    fun uploadProfilePicture(bitmap: Bitmap, professorProfile: ProfessorProfile, navController: NavController) {
 
         val baos = ByteArrayOutputStream()
 
@@ -30,7 +32,7 @@ class CreateProfessorProfileViewModel @Inject constructor(
 
         val storageRef = storage.reference.child("poze_profesori/${uuid.toString()}")
 
-        var uploadTask = storageRef.putBytes(data)
+        val uploadTask = storageRef.putBytes(data)
 
 
         val urlTask = uploadTask.continueWithTask { task ->
@@ -47,16 +49,17 @@ class CreateProfessorProfileViewModel @Inject constructor(
                 professorProfile.imgUrl = downloadUrl.toString()
 
                 createProfessorProfile(
-                    professorProfile = professorProfile
+                    professorProfile = professorProfile,
+                    navController = navController
                 )
             }
         }
     }
 
     fun createProfessorProfile(
-        professorProfile: ProfessorProfile
+        professorProfile: ProfessorProfile,
+        navController: NavController
     ) {
-
         val data = hashMapOf(
             "nume" to professorProfile.nume,
             "prenume" to professorProfile.prenume,
@@ -67,8 +70,13 @@ class CreateProfessorProfileViewModel @Inject constructor(
         )
 
         firestore.collection("users").document(auth.currentUser?.email!!)
-            .set(hashMapOf(
-                "profil" to data
-            ), SetOptions.merge())
+            .set(
+                hashMapOf(
+                    "profil" to data
+                ),
+                SetOptions.merge()
+            ).addOnCompleteListener {
+                navController.navigate(Screens.Categories.route) { launchSingleTop = true }
+            }
     }
 }

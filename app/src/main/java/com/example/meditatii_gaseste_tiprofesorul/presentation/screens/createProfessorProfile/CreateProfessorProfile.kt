@@ -269,7 +269,8 @@ fun CreateProfessorProfile(
                                         judet = county,
                                         oras = city,
                                         numar = phoneNumber
-                                    )
+                                    ),
+                                    navController = navController
                                 )
                             }
                         },

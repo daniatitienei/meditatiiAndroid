@@ -38,7 +38,7 @@ fun SelectedCategory(
     navController: NavController = rememberNavController(),
     numeMaterie: String = "",
     moshi: Moshi,
-    selectedCategoryViewModel: SelectedCategoryViewModel = hiltViewModel(),
+    selectedCategoryViewModel: SelectedCategoryViewModel,
     accountViewModel: AccountViewModel = hiltViewModel()
 ) {
     val scope = rememberCoroutineScope()
@@ -98,7 +98,7 @@ fun SelectedCategory(
 
             Column(
                 modifier = Modifier.fillMaxHeight(),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.SpaceAround
             ) {
                 LottieAnimation(composition = composition, progress = progress)
             }

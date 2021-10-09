@@ -93,7 +93,7 @@ fun ProfessorListTile(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Text(professor.judet)
+                    Text(professor.oras)
                 }
             }
             Row(
