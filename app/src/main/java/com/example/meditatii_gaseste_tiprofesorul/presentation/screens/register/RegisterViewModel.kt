@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
@@ -43,6 +44,21 @@ class RegisterViewModel @Inject constructor(
                         emailError.value = "Email-ul deja este folosit"
                     }
                 }
+            }
+    }
+
+    fun registerWithGoogle(
+        credential: AuthCredential,
+        navController: NavController
+    ) {
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("GoogleSignIn", "signInWithCredential:success")
+                    navController.navigate(Screens.SelectRole.route) { launchSingleTop = true }
+                }
+                else
+                    Log.d("GoogleSignIn", "signInWithCredential:failed")
             }
     }
 }

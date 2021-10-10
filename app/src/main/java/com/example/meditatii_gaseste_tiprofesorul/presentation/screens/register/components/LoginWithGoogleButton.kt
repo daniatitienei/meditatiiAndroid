@@ -16,9 +16,11 @@ import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
 import com.free.find_your_teacher.R
 
 @Composable
-fun LoginWithGoogleButton() {
+fun LoginWithGoogleButton(
+    onClick: () -> Unit
+) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
         shape = CircleShape,
     ) {

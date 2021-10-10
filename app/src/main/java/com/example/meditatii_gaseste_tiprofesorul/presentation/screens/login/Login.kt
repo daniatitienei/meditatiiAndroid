@@ -1,5 +1,8 @@
 package com.example.meditatii_gaseste_tiprofesorul.presentation.screens
 
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -9,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -25,7 +29,11 @@ import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.
 import com.example.meditatii_gaseste_tiprofesorul.presentation.screens.register.components.LoginWithGoogleButton
 import com.example.meditatii_gaseste_tiprofesorul.startDestination
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 @ExperimentalComposeUiApi
 @Composable
@@ -51,6 +59,17 @@ fun Login(
 
     var password by remember {
         mutableStateOf("")
+    }
+
+    val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) {
+        val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+        try {
+            val account = task.getResult(ApiException::class.java)!!
+            val credential = GoogleAuthProvider.getCredential(account.idToken!!, null)
+            loginViewModel.loginWithGoogle(credential, navController)
+        } catch (e: ApiException) {
+            Log.w("TAG", "Google sign in failed", e)
+        }
     }
 
     Column(
@@ -143,6 +162,19 @@ fun Login(
 
         Spacer(modifier = Modifier.height(5.dp))
 
-        LoginWithGoogleButton()
+        val context = LocalContext.current
+        val token = "834293774562-3o8ppt3dp1dct3e5q773jks56f2e90u1.apps.googleusercontent.com"
+
+        LoginWithGoogleButton(
+            onClick = {
+                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(token)
+                    .requestEmail()
+                    .build()
+
+                val googleSignInClient = GoogleSignIn.getClient(context, gso)
+                launcher.launch(googleSignInClient.signInIntent)
+            }
+        )
     }
 }

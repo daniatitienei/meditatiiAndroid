@@ -41,7 +41,6 @@ class MainActivity : ComponentActivity() {
                         moshi = moshi,
                         svgLoader = svgLoader,
                     )
-//                    Filters()
                 }
             }
         }
