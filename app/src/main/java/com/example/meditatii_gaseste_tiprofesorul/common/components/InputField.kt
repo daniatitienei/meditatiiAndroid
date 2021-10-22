@@ -7,13 +7,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -23,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
 import com.example.meditatii_gaseste_tiprofesorul.common.FieldType
 import com.example.meditatii_gaseste_tiprofesorul.common.PhoneNumberVisualTransformation
+import com.free.find_your_teacher.R
 
 @ExperimentalComposeUiApi
 @Composable
@@ -48,12 +48,18 @@ fun InputField(
             trailingIcon =  {
                 when (type) {
                     FieldType.PASSWORD -> IconButton(onClick = { obscureText = !obscureText }) {
-                        Icon(
-                            Icons.Outlined.Clear,
-                            contentDescription = null,
-                            tint = Purple700
-                        )
-                        //                TODO Bag iconita cu ochi
+                        if (obscureText)
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_outline_remove_red_eye_24),
+                                contentDescription = null,
+                                tint = Purple700
+                            )
+                        else
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_remove_red_eye_24),
+                                contentDescription = null,
+                                tint = Purple700
+                            )
                     }
                     FieldType.PRICE -> Text(text = "Lei")
                     else -> null

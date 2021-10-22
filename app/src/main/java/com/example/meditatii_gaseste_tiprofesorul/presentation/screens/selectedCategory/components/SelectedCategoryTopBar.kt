@@ -6,11 +6,12 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.example.meditatii_gaseste_tiprofesorul.colors.Purple700
 import com.example.meditatii_gaseste_tiprofesorul.common.Screens
+import com.free.find_your_teacher.R
 
 @Composable
 fun SelectedCategoryTopBar(navController: NavController, title: String) {
@@ -27,7 +28,7 @@ fun SelectedCategoryTopBar(navController: NavController, title: String) {
             IconButton(onClick = {
                 navController.navigate(Screens.Filters.route) { launchSingleTop = true }
             }) {
-                Icon(Icons.Rounded.Menu, contentDescription = null, tint = Purple700)
+                Icon(painter = painterResource(id = R.drawable.ic_baseline_filter_alt_24), contentDescription = null, tint = Purple700)
             }
         }
     )

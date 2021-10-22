@@ -51,19 +51,21 @@ fun Categories(
 
     ) {
         LazyColumn {
-            items(categoriesViewModel.categoriesList.size, itemContent = {
-                val materie = categoriesViewModel.categoriesList[it]
+            categoriesViewModel.categoriesList.value?.size?.let { it1 ->
+                items(it1, itemContent = {
+                    val materie = categoriesViewModel.categoriesList.value!![it]
 
-                CategoryTileList(
-                    onClick = {
-                        navController.navigate(
-                            Screens.SelectedCategory.route.replace("{numeMaterie}", materie.nume),
-                        )
-                    },
-                    materie = materie,
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-            })
+                    CategoryTileList(
+                        onClick = {
+                            navController.navigate(
+                                Screens.SelectedCategory.route.replace("{numeMaterie}", materie.nume),
+                            )
+                        },
+                        materie = materie,
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                })
+            }
         }
     }
 }

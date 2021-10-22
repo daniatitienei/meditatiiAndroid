@@ -67,7 +67,7 @@ fun Filters(
                     TopAppBar(
                         title = { Text(text = "Filtre") },
                         navigationIcon = {
-                            IconButton(onClick = { /*TODO*/ }) {
+                            IconButton(onClick = { navController.popBackStack() }) {
                                 Icon(Icons.Rounded.ArrowBack, contentDescription = null, tint = Purple700)
                             }
                         }

@@ -69,16 +69,18 @@ fun SelectedCategory(
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
     ) {
-        if (!selectedCategoryViewModel.profesoriList.isEmpty())
+        if (!selectedCategoryViewModel.profesoriList.value?.isEmpty()!!)
             LazyColumn {
-                items(selectedCategoryViewModel.profesoriList.size) {
+                items(selectedCategoryViewModel.profesoriList.value!!.size) {
                     ProfessorListTile(
-                        professor = selectedCategoryViewModel.profesoriList[it],
+                        professor = selectedCategoryViewModel.profesoriList.value!![it],
                         onClick = {
-                            selectedCategoryViewModel.profesoriList[it].imgUrl = URLEncoder.encode(selectedCategoryViewModel.profesoriList[it].imgUrl, StandardCharsets.UTF_8.toString())
-                            selectedCategoryViewModel.profesoriList[it].descriere = reverseSlash(selectedCategoryViewModel.profesoriList[it].descriere)
+                            selectedCategoryViewModel.profesoriList.value!![it].imgUrl = URLEncoder.encode(
+                                selectedCategoryViewModel.profesoriList.value!![it].imgUrl, StandardCharsets.UTF_8.toString())
+                            selectedCategoryViewModel.profesoriList.value!![it].descriere = reverseSlash(
+                                selectedCategoryViewModel.profesoriList.value!![it].descriere)
                             val jsonAdapter = moshi.adapter(Professor::class.java)
-                            val professorJson = jsonAdapter.toJson(selectedCategoryViewModel.profesoriList[it])
+                            val professorJson = jsonAdapter.toJson(selectedCategoryViewModel.profesoriList.value!![it])
 
                             navController.navigate(
                                 Screens.InspectProfessor.route.replace("{professor}", professorJson)

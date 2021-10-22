@@ -1,6 +1,6 @@
 package com.example.meditatii_gaseste_tiprofesorul.presentation.screens.favorites
 
-import androidx.compose.runtime.mutableStateListOf
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
 import com.google.firebase.auth.FirebaseAuth
@@ -15,7 +15,7 @@ class FavoritesViewModel @Inject constructor(
     private val auth: FirebaseAuth
 ): ViewModel() {
 
-    var favorites = mutableStateListOf<Professor>()
+    var favorites = MutableLiveData<List<Professor>>(listOf())
         private set
 
     init {
@@ -29,9 +29,7 @@ class FavoritesViewModel @Inject constructor(
             if (error != null)
                 return@addSnapshotListener
 
-            for (document in snapshot!!.toObjects<Professor>()) {
-                favorites.add(document)
-            }
+            favorites.value = snapshot!!.toObjects<Professor>()
         }
     }
 }

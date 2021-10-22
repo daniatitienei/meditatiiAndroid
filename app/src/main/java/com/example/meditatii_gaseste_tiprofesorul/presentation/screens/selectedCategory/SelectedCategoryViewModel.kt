@@ -1,8 +1,8 @@
 package com.example.meditatii_gaseste_tiprofesorul.presentation.screens.selectedCategory
 
 import android.util.Log
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.meditatii_gaseste_tiprofesorul.domain.model.Professor
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,16 +15,13 @@ import javax.inject.Inject
 class SelectedCategoryViewModel @Inject constructor(
     private val firestore: FirebaseFirestore
 ): ViewModel() {
-    var profesoriList = mutableStateListOf<Professor>()
+    var profesoriList = MutableLiveData<List<Professor>>(listOf())
         private set
 
     var ordonare = mutableStateOf("Crescator")
     var oras = mutableStateOf("")
 
     fun getProfesoriList(numeMaterie: String) {
-
-        profesoriList.clear()
-
         val collectionRef =
             if (oras.value.isNotEmpty())
                 firestore.collection("materii/$numeMaterie/anunturi")
@@ -40,9 +37,7 @@ class SelectedCategoryViewModel @Inject constructor(
                     return@addSnapshotListener
                 }
 
-                for (document in value!!.toObjects<Professor>()) {
-                    profesoriList.add(document)
-                }
+                profesoriList.value = value!!.toObjects<Professor>()
             }
     }
 

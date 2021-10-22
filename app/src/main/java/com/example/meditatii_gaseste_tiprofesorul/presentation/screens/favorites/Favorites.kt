@@ -58,16 +58,18 @@ fun Favorites(
             )
         }
     ) {
-        if (!favoritesViewModel.favorites.isEmpty())
+        if (!favoritesViewModel.favorites.value?.isEmpty()!!)
             LazyColumn() {
-                items(favoritesViewModel.favorites.size) {
+                items(favoritesViewModel.favorites.value!!.size) {
                     ProfessorListTile(
-                        professor = favoritesViewModel.favorites[it],
+                        professor = favoritesViewModel.favorites.value!![it],
                         onClick = {
-                            favoritesViewModel.favorites[it].imgUrl = URLEncoder.encode(favoritesViewModel.favorites[it].imgUrl, StandardCharsets.UTF_8.toString())
-                            favoritesViewModel.favorites[it].descriere = reverseSlash(favoritesViewModel.favorites[it].descriere)
+                            favoritesViewModel.favorites.value!![it].imgUrl = URLEncoder.encode(
+                                favoritesViewModel.favorites.value!![it].imgUrl, StandardCharsets.UTF_8.toString())
+                            favoritesViewModel.favorites.value!![it].descriere = reverseSlash(
+                                favoritesViewModel.favorites.value!![it].descriere)
                             val jsonAdapter = moshi.adapter(Professor::class.java)
-                            val professorJson = jsonAdapter.toJson(favoritesViewModel.favorites[it])
+                            val professorJson = jsonAdapter.toJson(favoritesViewModel.favorites.value!![it])
 
                             navController.navigate(
                                 Screens.InspectProfessor.route.replace("{professor}", professorJson)
